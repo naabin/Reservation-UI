@@ -1,0 +1,21 @@
+.signup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-display: inherit;
+    text-decoration: white;
+    margin-top: 1%;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+.form {
+    width: 100%;
+}
+
+.title {
+    font-weight: 900;
+}
+

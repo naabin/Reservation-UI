@@ -10,7 +10,7 @@ import { LoginDetails } from 'src/models/loginDetails';
 @Injectable({
   providedIn: 'root'
 })
-export class UserSeriviceService {
+export class UserSerivice {
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -61,6 +61,6 @@ export class UserSeriviceService {
   authenticateUser(loginDetails: LoginDetails): Observable<LoginDetails> {
     return this.http.post<LoginDetails>(url, JSON.stringify(loginDetails), this.httpOptions);
   }
-
+  
   constructor(private http: HttpClient, private messageService: MessageService) { }
 }
