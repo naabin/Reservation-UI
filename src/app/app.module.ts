@@ -8,12 +8,13 @@ import { AppComponent } from './app.component';
 import { UserUiComponent } from './components/user-ui/user-ui.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule }  from './material.module';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserUiComponent,
-    
+    NavigationComponent
   ],
   imports: [
     MaterialModule,
