@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-6">
+            <div class="signup">
+                <h1 class="title">User SignIn</h1>
+                <form>
+                    <div>
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Username</mat-label>
+                            <input type="text" matInput placeholder="Username">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Password</mat-label>
+                            <input type="password" matInput placeholder="password">
+                        </mat-form-field>
+                        <button mat-raised-button type="submit">SignIn</button>
+                    </div>
+                </form>
+                <div class="text-center">
+                    <h1 class="title">Or</h1>
+                    <a [routerLink]="['/signup']" routerLinkActive="router-link-active" >SignUp</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
