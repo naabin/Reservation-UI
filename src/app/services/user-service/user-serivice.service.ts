@@ -39,7 +39,7 @@ export class UserSerivice {
   }
 
   getUser(id: number): Observable<User> {
-    const url = `${this.remoteUrl}/api/user/${id}`;
+    const url = `${this.remoteUrl}api/user/${id}`;
     return this.http.get<User>(url, this.httpOptions)
       .pipe(
         tap(_ => this.messageService.add(`fetched user id=$${id}`)),
@@ -50,8 +50,8 @@ export class UserSerivice {
   deleteUser(user: User): Observable<User>{
     const id = typeof user === 'number' ? user : user.id;
 
-    const url = `${this.remoteUrl}/api/user/${id}`;
-    return this.http.delete<User>(this.remoteUrl, this.httpOptions)
+    const url = `${this.remoteUrl}api/user/${id}`;
+    return this.http.delete<User>(url, this.httpOptions)
       .pipe(
         tap(_ => this.messageService.add(`deleted user id=${id}`)),
         catchError(this.messageService.errorHandler<User>('deleteUser'))
