@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
-import {MatInputModule, MatButtonModule, MatIconModule} from '@angular/material';
+import {MatInputModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatNativeDateModule} from '@angular/material';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 
 @NgModule({
@@ -7,12 +8,18 @@ import {MatInputModule, MatButtonModule, MatIconModule} from '@angular/material'
         MatInputModule,
         MatButtonModule,
         MatIconModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        NgxMaterialTimepickerModule.setLocale('au'),
     ],
 
     exports: [
         MatInputModule,
         MatButtonModule,
         MatIconModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        NgxMaterialTimepickerModule
     ]
 
 })
