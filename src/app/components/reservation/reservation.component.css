@@ -1,4 +1,10 @@
-#date {
-    display: flex;
-    flex-direction: column;
+.time {
+    display: block;
+    position: relative;
+    flex: auto;
+    padding: 10px;
+    margin-bottom: 20px;
+    min-width: 100%;
+    border-radius: 5px;
+    box-shadow: none;
 }
