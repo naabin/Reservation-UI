@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {MatInputModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatNativeDateModule} from '@angular/material';
+import {MatInputModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule} from '@angular/material';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 
@@ -11,6 +11,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
         MatDatepickerModule,
         MatNativeDateModule,
         NgxMaterialTimepickerModule.setLocale('au'),
+        MatProgressSpinnerModule,
     ],
 
     exports: [
@@ -19,7 +20,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
         MatIconModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        NgxMaterialTimepickerModule
+        NgxMaterialTimepickerModule,
+        MatProgressSpinnerModule,
     ]
 
 })

@@ -3,22 +3,38 @@
         <div class="col-sm-12 col-md-6">
             <div class="signup">
                 <h1 class="title">User SignIn</h1>
-                <form>
+                <form [formGroup]="loginForm" (submit)="onSubmit()">
                     <div>
+                        <div>
+                        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                            <div *ngIf="f.username.errors.required">Username is required</div>
+                        </div>
                         <mat-form-field appearance="outline" class="full-width">
                             <mat-label>Username</mat-label>
-                            <input type="text" matInput placeholder="Username">
+                            <input type="text" matInput formControlName="username"
+                                [ngClass]="{'is-invalid': submitted && f.username.errors}"
+                                placeholder="Username">
                         </mat-form-field>
+                    </div>
+                    <div>
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">Password is required</div>
+                        </div>
                         <mat-form-field appearance="outline" class="full-width">
                             <mat-label>Password</mat-label>
-                            <input type="password" matInput placeholder="password">
+                            <input type="password" matInput
+                                formControlName = "password"
+                                [ngClass] = "{'is-invalid': submitted && f.password.errors}"
+                                placeholder="password">
                         </mat-form-field>
-                        <button mat-raised-button type="submit">SignIn</button>
+                    </div>
+                        <button [disabled]="loading" mat-raised-button type="submit">SignIn</button>
+                        <mat-spinner *ngIf="loading"></mat-spinner>
                     </div>
                 </form>
-                <div class="text-center">
-                    <h1 class="title">Or</h1>
-                    <a [routerLink]="['/signup']" routerLinkActive="router-link-active" >SignUp</a>
+                <div class="text-center form-group">
+                    
+                    <a [routerLink]="['/signup']" routerLinkActive="router-link-active">SignUp</a>
                 </div>
             </div>
         </div>

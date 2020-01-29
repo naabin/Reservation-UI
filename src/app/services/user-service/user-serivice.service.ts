@@ -2,24 +2,37 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import {url} from '../../../util/romteUrl';
 import { User } from 'src/models/user';
-import { Observable} from 'rxjs';
+import { Observable, BehaviorSubject} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import { MessageService } from '../message-service/message.service';
-import { LoginDetails } from 'src/models/loginDetails';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserSerivice {
 
-  httpOptions = {
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
+  
+  private remoteUrl = url;
+
+  private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
   };
 
+  constructor(private http: HttpClient, private messageService: MessageService) { 
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('token')));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
-  private remoteUrl = url;
+
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
+  
 
   registerUser(user: User): Observable<User>{
     return this.http.post<User>(this.remoteUrl + 'api/user/register', JSON.stringify(user), this.httpOptions)
@@ -50,6 +63,8 @@ export class UserSerivice {
   deleteUser(user: User): Observable<User>{
     const id = typeof user === 'number' ? user : user.id;
 
+    
+
     const url = `${this.remoteUrl}api/user/${id}`;
     return this.http.delete<User>(url, this.httpOptions)
       .pipe(
@@ -58,9 +73,19 @@ export class UserSerivice {
       )
   }
 
-  authenticateUser(loginDetails: LoginDetails): Observable<LoginDetails> {
-    return this.http.post<LoginDetails>(url, JSON.stringify(loginDetails), this.httpOptions);
+  authenticateUser(username: string, password: string) {
+    return this.http.post<any>(`${url}authenticate`, JSON.stringify({'username': username, 'password': password}), this.httpOptions)
+      .pipe(map(res => {
+        if(res !== null && res !== undefined){
+          localStorage.setItem('auth-token', JSON.stringify(res));
+          this.currentUserSubject.next(res);
+        }
+        return res;
+      }))
   }
-  
-  constructor(private http: HttpClient, private messageService: MessageService) { }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.currentUserSubject.next(null);
+  }
 }

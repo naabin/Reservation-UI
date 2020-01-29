@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { UserUiComponent } from './components/user-ui/user-ui.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
+import { AuthGuard } from './guards/auth.guard';
 
 
 const routes: Routes = [
@@ -25,8 +26,11 @@ const routes: Routes = [
   },
   {
     path: 'reservation',
-    component: ReservationComponent
-  }
+    component: ReservationComponent,
+    canActivate: [AuthGuard]
+  },
+  //otherwise redirect to loginpag
+  {path: '**', redirectTo: ''}
 ];
 
 @NgModule({

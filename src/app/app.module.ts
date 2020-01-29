@@ -11,6 +11,7 @@ import { MaterialModule }  from './material.module';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { LoginComponent } from './components/login/login.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ReservationComponent } from './components/reservation/reservation.compo
     UserUiComponent,
     NavigationComponent,
     LoginComponent,
-    ReservationComponent
+    ReservationComponent,
+    AlertComponent
   ],
   imports: [
     MaterialModule,
