@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import {url} from '../../../util/romteUrl';
+import {url} from '../../../util/remoteUrl';
 import { User } from 'src/models/user';
 import { Observable, BehaviorSubject} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
@@ -77,7 +77,7 @@ export class UserSerivice {
     return this.http.post<any>(`${url}authenticate`, JSON.stringify({'username': username, 'password': password}), this.httpOptions)
       .pipe(map(res => {
         if(res !== null && res !== undefined){
-          localStorage.setItem('auth-token', JSON.stringify(res));
+          localStorage.setItem('token', JSON.stringify(res));
           this.currentUserSubject.next(res);
         }
         return res;
