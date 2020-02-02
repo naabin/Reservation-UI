@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 
-import {url} from '../../../util/romteUrl';
+import {url} from '../../../util/remoteUrl';
 import { Reservation } from 'src/models/reservation';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';

@@ -12,11 +12,11 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
-  
+
+
   loginForm: FormGroup;
-  loading =  false;
-  submitted =  false;
+  loading = false;
+  submitted = false;
   returnUrl: string;
 
 
@@ -25,20 +25,20 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private alertService: AlertService  
-  ) { 
-    if(this.userService.currentUserValue){
+    private alertService: AlertService
+  ) {
+    if (this.userService.currentUserValue) {
       this.router.navigate['/'];
     }
   }
 
-  get f(){return this.loginForm.controls};
-  
+  get f() { return this.loginForm.controls };
 
-  onSubmit(){
+
+  onSubmit() {
     this.submitted = true;
 
-    if(this.loginForm.invalid){
+    if (this.loginForm.invalid) {
       return;
     }
 
@@ -47,13 +47,12 @@ export class LoginComponent implements OnInit {
     this.userService.authenticateUser(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(data => {
-        console.log(data);
         this.router.navigate([this.returnUrl]);
       },
-      error => {
-        this.alertService.error(error);
-        this.loading = false;
-      }
+        error => {
+          this.alertService.error(error && error.error && error.error.message);
+          this.loading = false;
+        }
       )
 
   }
@@ -67,6 +66,6 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  
+
 
 }
