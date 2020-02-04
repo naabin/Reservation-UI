@@ -2,7 +2,7 @@
 <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark blue" [containerInside]="false">
 
     <!-- Navbar brand -->
-    <mdb-navbar-brand><a class="navbar-brand" href="#"><mdb-icon fas icon="home"></mdb-icon>My Restaurant</a></mdb-navbar-brand>
+    <mdb-navbar-brand><a class="navbar-brand" [routerLink]="['/']" routerLinkActive="router-link-active" ><mdb-icon fas icon="home"></mdb-icon>My Restaurant</a></mdb-navbar-brand>
   
     <!-- Collapsible content -->
     <links>
@@ -13,7 +13,7 @@
           <a class="nav-link waves-light" mdbWavesEffect><mdb-icon fas icon="envelope"></mdb-icon> Contact<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link waves-light" mdbWavesEffect><mdb-icon fas icon="book"></mdb-icon> My Bookings</a>
+          <a [routerLink]="['/reservation']" routerLinkActive="router-link-active"  class="nav-link waves-light" mdbWavesEffect><mdb-icon fas icon="book"></mdb-icon> My Bookings</a>
         </li>
   
         <!-- Dropdown -->
@@ -22,7 +22,7 @@
             <mdb-icon fas icon="user"></mdb-icon> Profile<span class="caret"></span></a>
           <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
             <a class="dropdown-item waves-light" mdbWavesEffect href="#">My account</a>
-            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Log out</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()">Log out</a>
           </div>
         </li>
   
