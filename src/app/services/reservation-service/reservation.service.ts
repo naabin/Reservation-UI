@@ -22,7 +22,7 @@ export class ReservationService {
   private remoteUrl = url;
 
   createReservation(reservation: Reservation): Observable<Reservation>{
-    return this.http.post<Reservation>(`${this.remoteUrl}api/reservatuon/new`,JSON.stringify(reservation), this.httpOptions)
+    return this.http.post<Reservation>(`${this.remoteUrl}api/reservation/new`,JSON.stringify(reservation), this.httpOptions)
       .pipe(
         (tap((r: Reservation) => this.messageService.add(`Successfully created reservation with id=${r.id}`)),
         catchError(this.messageService.errorHandler<Reservation>('createReservation'))
@@ -31,7 +31,7 @@ export class ReservationService {
   }
 
   getReservations(): Observable<Reservation[]>{
-    return this.http.get<Reservation[]>(`${this.remoteUrl}api/reservation/all`)
+    return this.http.get<Reservation[]>(`${this.remoteUrl}api/reservation/all`, this.httpOptions)
       .pipe(
         tap(_ => this.messageService.add('fetched all reservations')),
         catchError(this.messageService.errorHandler<Reservation[]>('getReservations', [])

@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/services/alert-service/alert.service';
 import { first } from 'rxjs/operators';
+import { UserRole, Role } from 'src/models/userRole';
 
 @Component({
   selector: 'app-user-ui',
@@ -37,6 +38,12 @@ export class UserUiComponent implements OnInit {
      if(this.signupForm.invalid){
        return;
      }
+     let userRole = new UserRole();
+     let role = new Role();
+     role.role = 'ROLE_USER';
+     userRole.role = role;
+     
+     this.user.userRoles = [{...userRole}];
      this.user.firstName = this.f.firstName.value;
      this.user.lastName = this.f.lastName.value;
      this.user.email = this.f.email.value;
@@ -45,12 +52,13 @@ export class UserUiComponent implements OnInit {
 
      this.loading = true;
 
-     this.userService.registerUser(this.user).pipe(first())
+     this.userService.registerUser(this.user).pipe(
+       first())
       .subscribe(data => {
-        console.log(data);
-        this.alertService.success("Registration successful");
+        this.alertService.success("Registration successful",true);
         this.router.navigate['/login'];
         this.loading = false;
+        this.user = new User();
       },
       error => {
         this.alertService.error(error.message);

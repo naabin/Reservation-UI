@@ -3,7 +3,7 @@ export class UserRole {
     role: Role
 }
 
-class Role {
+export class Role {
     id: number
     role: string
 }

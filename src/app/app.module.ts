@@ -13,6 +13,8 @@ import { LoginComponent } from './components/login/login.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { ErrorInterceptor } from './helpers/error.interceptor';
+import { UserAccountComponent } from './components/user-account/user-account.component';
+import { RestaurantComponent } from './components/restaurant/restaurant.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
     NavigationComponent,
     LoginComponent,
     ReservationComponent,
-    AlertComponent
+    AlertComponent,
+    UserAccountComponent,
+    RestaurantComponent
   ],
   imports: [
     MaterialModule,
