@@ -1,4 +1,4 @@
-import { DateTime, DateTimeFormatOptions } from 'luxon';
+import { DateTime} from 'luxon';
 
 export class Reservation {
     id: number;
@@ -7,6 +7,6 @@ export class Reservation {
     phoneNumber: string;
     numberOfPeople: string;
     date: Date;
-    time: DateTimeFormatOptions;
+    time: DateTime;
     specialRequest: string;
 }

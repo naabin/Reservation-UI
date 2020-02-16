@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
-import { UserUiComponent } from './components/user-ui/user-ui.component';
+import { UserUiComponent } from './components/user-signup/user-ui.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
 import { AuthGuard } from './guards/auth.guard';
+import { UserAccountComponent } from './components/user-account/user-account.component';
+import { RestaurantComponent } from './components/restaurant/restaurant.component';
 
 
 const routes: Routes = [
@@ -23,6 +25,16 @@ const routes: Routes = [
   {
     path: 'reservation',
     component: ReservationComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'user',
+    component: UserAccountComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'restaurant',
+    component: RestaurantComponent,
     canActivate: [AuthGuard]
   },
   //otherwise redirect to loginpag

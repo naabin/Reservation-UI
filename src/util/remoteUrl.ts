@@ -1,1 +1,1 @@
-export const url = 'http://ecd94251.ngrok.io/';
+export const url = 'http://localhost:8080/';

@@ -37,7 +37,7 @@ export class UserSerivice {
   registerUser(user: User): Observable<User>{
     return this.http.post<User>(this.remoteUrl + 'api/user/register', JSON.stringify(user), this.httpOptions)
       .pipe(
-        (tap((newUser: User) => this.messageService.add(`added user w/ id=${newUser.id}`)),
+        (tap((newUser: User) => this.messageService.add(`added user with id=${newUser.id}`)),
         catchError(this.messageService.errorHandler<User>('registerUser'))
         )
       )
