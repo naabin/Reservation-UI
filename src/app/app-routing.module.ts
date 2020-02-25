@@ -1,43 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { UserUiComponent } from './components/user-signup/user-ui.component';
-import { ReservationComponent } from './components/reservation/reservation.component';
-import { AuthGuard } from './guards/auth.guard';
-import { UserAccountComponent } from './components/user-account/user-account.component';
-import { RestaurantComponent } from './components/restaurant/restaurant.component';
 
 
 const routes: Routes = [
-
   {
-    path: '',
-    component: LoginComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'signup',
-    component: UserUiComponent
+    path: 'user',
+    loadChildren: () => import('./user/user.module').then(m => m.UserModule)
   },
   {
     path: 'reservation',
-    component: ReservationComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'user',
-    component: UserAccountComponent,
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule)
   },
   {
     path: 'restaurant',
-    component: RestaurantComponent,
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./restaurant/restaurant.module').then(m => m.RestaurantModule)
   },
-  //otherwise redirect to loginpag
+  //otherwise redirect to loginpage
   {path: '**', redirectTo: ''}
 ];
 
@@ -46,3 +24,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

@@ -19,6 +19,10 @@ export class UserUiComponent implements OnInit {
   loading =  false;
   submitted = false;
   returnUrl: string;
+  private userRole =  new UserRole();
+  private role =  new Role('ROLE_USER');
+  
+
 
   constructor(
     private userService: UserSerivice,
@@ -30,6 +34,9 @@ export class UserUiComponent implements OnInit {
       if(this.userService.currentUserValue){
         this.router.navigate['/'];
       }
+
+      this.userRole.role = {...this.role};
+      
     }
   get f() {return this.signupForm.controls};
 
@@ -38,18 +45,16 @@ export class UserUiComponent implements OnInit {
      if(this.signupForm.invalid){
        return;
      }
-     let userRole = new UserRole();
-     let role = new Role();
-     role.role = 'ROLE_USER';
-     userRole.role = role;
+
      
-     this.user.userRoles = [{...userRole}];
+    
+
      this.user.firstName = this.f.firstName.value;
      this.user.lastName = this.f.lastName.value;
      this.user.email = this.f.email.value;
      this.user.username = this.f.username.value;
      this.user.password = this.f.password.value;
-
+     this.user.userRoles = Array.of(this.userRole);
      this.loading = true;
 
      this.userService.registerUser(this.user).pipe(
