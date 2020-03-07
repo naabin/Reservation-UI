@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UserSerivice } from 'src/app/services/user-service/user-serivice.service';
 import { User } from 'src/models/user';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Router} from '@angular/router';
 import { AlertService } from 'src/app/services/alert-service/alert.service';
 import { first } from 'rxjs/operators';
-import { UserRole, Role } from 'src/models/userRole';
+import { UniqueUsernameValidator } from '../unique-username';
+import { MatchPasswordVaildator } from '../matchpassword';
 
 @Component({
   selector: 'app-user-ui',
@@ -14,56 +15,49 @@ import { UserRole, Role } from 'src/models/userRole';
 })
 export class UserUiComponent implements OnInit {
 
-  user: User = new User();
-  signupForm: FormGroup;
+  user = new User();
   loading =  false;
-  submitted = false;
   returnUrl: string;
-  private userRole =  new UserRole();
-  private role =  new Role('ROLE_USER');
+
+
+  signupForm = new FormGroup({
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    username: new FormControl('', [Validators.required],  [this.uniquUsernameCheck.validate]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    passwordConfirmation: new FormControl('', [Validators.required, Validators.minLength(6)])
+  }, {validators: this.matchPassword.validate});
   
 
 
   constructor(
     private userService: UserSerivice,
-    private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private uniquUsernameCheck: UniqueUsernameValidator,
+    private matchPassword: MatchPasswordVaildator
     ) { 
       if(this.userService.currentUserValue){
         this.router.navigate['/'];
       }
-
-      this.userRole.role = {...this.role};
-      
     }
-  get f() {return this.signupForm.controls};
-
   onSubmit() {
-     this.submitted = true;
      if(this.signupForm.invalid){
        return;
      }
-
+     this.user.firstName = this.signupForm.get('firstName').value;
+     this.user.lastName = this.signupForm.get('lastName').value;
+     this.user.email = this.signupForm.get('email').value;
+     this.user.username = this.signupForm.get('username').value;
+     this.user.password = this.signupForm.get('password').value;
      
-    
-
-     this.user.firstName = this.f.firstName.value;
-     this.user.lastName = this.f.lastName.value;
-     this.user.email = this.f.email.value;
-     this.user.username = this.f.username.value;
-     this.user.password = this.f.password.value;
-     this.user.userRoles = Array.of(this.userRole);
-     this.loading = true;
 
      this.userService.registerUser(this.user).pipe(
        first())
-      .subscribe(data => {
+      .subscribe(() => {
         this.alertService.success("Registration successful",true);
-        this.router.navigate['/login'];
-        this.loading = false;
-        this.user = new User();
+        this.router.navigateByUrl['/login'];
       },
       error => {
         this.alertService.error(error.message);
@@ -72,13 +66,6 @@ export class UserUiComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.signupForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    });
   }
 
 }

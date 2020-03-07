@@ -1,0 +1,15 @@
+<mat-form-field appearance="outline" class="full-width">
+    <mat-label>{{label}}</mat-label>
+    <input [ngClass]="{'is-invalid': showErrors()}" matInput [type]="inputType" [formControl]="control" placeholder="{{label}}" />
+    <div *ngIf="control.touched && control.dirty && control.errors" class="invalid-feedback">
+        <p *ngIf="control.errors.required">{{label}} is required</p>
+        <p *ngIf="control.errors.nonUniqueUsername">Username is taken</p>
+        <p *ngIf="control.errors.noConnection">Unknown error occured. Please check the internet connection</p>
+        <p *ngIf="control.errors.email">Enter a valid email</p>
+        <p *ngIf="control.errors.minlength">
+            Password you entered is {{control.errors.minlength.actualLength}} characters long, it must be at least
+            {{control.errors.minlength.requiredLength}}
+        </p>
+    </div>
+</mat-form-field>
+

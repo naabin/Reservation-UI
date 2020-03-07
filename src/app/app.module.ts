@@ -5,16 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorInterceptor } from './helpers/error.interceptor';
-import { NavigationComponent } from './shared/navigation/navigation.component';
-import { AlertComponent } from './shared/alert/alert.component';
 import { MaterialModule } from './material/material.module';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationComponent,
-    AlertComponent
   ],
   imports: [
     MaterialModule,
@@ -22,6 +19,7 @@ import { MaterialModule } from './material/material.module';
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    SharedModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
