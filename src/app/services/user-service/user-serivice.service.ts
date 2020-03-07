@@ -32,10 +32,8 @@ export class UserSerivice {
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
   }
-  
-
-  registerUser(user: User): Observable<User>{
-    return this.http.post<User>(this.remoteUrl + 'api/user/register', JSON.stringify(user), this.httpOptions)
+  registerUser(user: User): Observable<any>{
+    return this.http.post<any>(this.remoteUrl + 'api/user/register', JSON.stringify(user), this.httpOptions)
       .pipe(
         (tap((newUser: User) => this.messageService.add(`added user with id=${newUser.id}`)),
         catchError(this.messageService.errorHandler<User>('registerUser'))
@@ -75,13 +73,20 @@ export class UserSerivice {
 
   authenticateUser(username: string, password: string) {
     return this.http.post<any>(`${url}authenticate`, JSON.stringify({'username': username, 'password': password}), this.httpOptions)
-      .pipe(map(res => {
+      .pipe(
+        map(res => {
         if(res !== null && res !== undefined){
           localStorage.setItem('token', JSON.stringify(res));
           this.currentUserSubject.next(res);
         }
         return res;
       }))
+  }
+
+  usernameAvailable(username: string){
+    return this.http.post<{available: boolean}>(`${this.remoteUrl}api/user/checkuniqueuser`, {}, {params: {
+      username: username
+    }})
   }
 
   logout() {

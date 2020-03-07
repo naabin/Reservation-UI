@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserSerivice } from 'src/app/services/user-service/user-serivice.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { LoginDetails } from 'src/models/loginDetails';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AlertService } from 'src/app/services/alert-service/alert.service';
 import { first } from 'rxjs/operators';
 
@@ -13,16 +12,11 @@ import { first } from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit {
 
-
-  loginForm: FormGroup;
   loading = false;
-  submitted = false;
   returnUrl: string;
-
 
   constructor(
     private userService: UserSerivice,
-    private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private alertService: AlertService
@@ -32,39 +26,32 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  get f() { return this.loginForm.controls };
-
-
+  loginForm = new FormGroup({
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required])
+  })
   onSubmit() {
-    this.submitted = true;
-
     if (this.loginForm.invalid) {
       return;
     }
-
     this.loading = true;
-
-    this.userService.authenticateUser(this.f.username.value, this.f.password.value)
-      .pipe(first())
-      .subscribe(data => {
-        this.router.navigate([this.returnUrl]);
-        this.loading = false;
-      },
-        error => {
-          this.alertService.error(error && error.error && error.error.message);
-          this.loading = false;
+    this.userService.authenticateUser(this.loginForm.get('username').value, this.loginForm.get('password').value)
+      .subscribe({
+        next: () => {
+          this.router.navigateByUrl('/reservation')
+        },
+        error: (error) => {
+          if(error){
+            this.loginForm.setErrors({credentials: true});
+            this.loading = false;
+          }
         }
-      )
+      })
 
   }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
-
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/login';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/user/login';
   }
 
 

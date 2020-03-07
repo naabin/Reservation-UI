@@ -1,43 +1,43 @@
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-sm-12 col-md-6">
-            <div class="signup">
-                <h1 class="title">User SignIn</h1>
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                    <div>
+<div class="container my-4">
+<div class="ui stackable grid">
+    <div class="ui center aligned placeholder segment sixteen wide column">
+        <div class="ui responsive two column very relaxed stackable grid">
+            <div class="column">
+                    <h1 class="text-center">User Signin</h1>
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                         <div>
-                            <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Username</mat-label>
-                                <input type="text" matInput formControlName="username"
-                                    [ngClass]="{'is-invalid': submitted && f.username.errors}" placeholder="Username">
-                                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                                    <div *ngIf="f.username.errors.required">Username is required</div>
-                                </div>
-                            </mat-form-field>
+                            
+                            <app-input [label]="'Username'" [inputType]="'text'" [control]="loginForm.get('username')">
+                            </app-input>
+                            <app-input [label]="'Password'" [inputType]="'password'" [control]="loginForm.get('password')"></app-input>
+                            <div class="ui red label" *ngIf="loginForm.errors">
+                                <p *ngIf="loginForm.errors.credentials">
+                                    Invalid credentials provided was given. Please try again.
+                                </p>
+                            </div>
+                            <button [ngClass]="loading ?'ui primary loading button': ''" type="submit" [disabled]="loginForm.invalid" mat-raised-button type="submit">SignIn
+                            </button>
                         </div>
-                        <div>
-                            <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Password</mat-label>
-                                <input type="password" formControlName="password" matInput
-                                    [ngClass]="{'is-invalid': submitted && f.password.errors}" placeholder="password">
-                                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                                    <div *ngIf="f.password.errors.required">Password is required</div>
-                                </div>
-                            </mat-form-field>
-
-                        </div>
-                        <button [disabled]="loading" mat-raised-button type="submit">
-                            SignIn
-                            <mat-spinner *ngIf="loading"></mat-spinner>
-                        </button>
-
-                    </div>
-                </form>
-                <div class="text-center form-group">
-
-                    <a [routerLink]="['/user/signup']" routerLinkActive="router-link-active">SignUp</a>
+                    </form>
+            </div>
+            <div class="middle aligned column">
+                <div [routerLink]="['/user/signup']" routerLinkActive="active"  class="ui big primary button">
+                    <i class="signup icon"></i>
+                    Signup
+                </div>
+                <div class="ui big facebook button my-1">
+                    <i class="facebook icon"></i>
+                    Facebook
+                </div>
+                <div class="ui big google plus button my-1">
+                   <i class="google icon"></i>
+                   Google
                 </div>
             </div>
         </div>
+        <div class="ui vertical divider">
+            OR
+        </div>
     </div>
+</div>
 </div>
