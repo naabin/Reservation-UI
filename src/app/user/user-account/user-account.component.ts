@@ -16,7 +16,7 @@ export class UserAccountComponent implements OnInit {
 
   ngOnInit() {
     if(this.userService.currentUserValue){
-      this.user = this.userService.currentUserValue;
+      this.user = this.userService.currentUserValue.value;
       console.log(this.user);
     }
     

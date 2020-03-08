@@ -29,8 +29,8 @@ export class UserSerivice {
   }
 
 
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
+  public get currentUserValue(): BehaviorSubject<User> {
+    return this.currentUserSubject;
   }
   registerUser(user: User): Observable<any>{
     return this.http.post<any>(this.remoteUrl + 'api/user/register', JSON.stringify(user), this.httpOptions)
@@ -74,9 +74,9 @@ export class UserSerivice {
   authenticateUser(username: string, password: string) {
     return this.http.post<any>(`${url}authenticate`, JSON.stringify({'username': username, 'password': password}), this.httpOptions)
       .pipe(
-        map(res => {
+        tap(res => {
         if(res !== null && res !== undefined){
-          localStorage.setItem('token', JSON.stringify(res));
+          localStorage.setItem('token', JSON.stringify(res.jwtToken));
           this.currentUserSubject.next(res);
         }
         return res;

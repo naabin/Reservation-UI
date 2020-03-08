@@ -5,11 +5,15 @@ import { ReservationRoutingModule } from './reservation-routing.module';
 import { ReservationComponent } from './reservation/reservation.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
+import { SharedModule } from '../shared/shared.module';
+import { ReservationFormComponent } from './reservation-form/reservation-form.component';
+import {IgxTimePickerModule} from 'igniteui-angular';
 
 
 @NgModule({
   declarations: [
-    ReservationComponent
+    ReservationComponent,
+    ReservationFormComponent
   ],
   imports: [
     CommonModule,
@@ -17,6 +21,9 @@ import { MaterialModule } from '../material/material.module';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    SharedModule,
+    IgxTimePickerModule
+
   ]
 })
 export class ReservationModule { }

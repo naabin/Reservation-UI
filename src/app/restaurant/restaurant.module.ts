@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { RestaurantRoutingModule } from './restaurant-routing.module';
 import { RestaurantComponent } from './restaurant/restaurant.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { RestaurantComponent } from './restaurant/restaurant.component';
   ],
   imports: [
     CommonModule,
-    RestaurantRoutingModule
+    RestaurantRoutingModule,
+    ReactiveFormsModule,
+    MaterialModule
   ]
 })
 export class RestaurantModule { }

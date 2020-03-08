@@ -1,40 +1,23 @@
-<div class="container" cdkAutofill>
-    <div class="row justify-content-center">
-        <div class="col-sm-12 col-md-6">
-            <div class="signup">
-                <h1 class="title">Create Reservation</h1>
-                <form>
-                    <div class="">
-                        <mat-form-field appearance="outline" class="full-width">
-                            <mat-label>Name</mat-label>
-                            <input type="text" matInput placeholder="Name">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline" class="full-width">
-                            <mat-label>Email</mat-label>
-                            <input type="text" matInput placeholder="Email">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline" class="full-width">
-                            <mat-label>Phone Number</mat-label>
-                            <input type="number" class="full-width" matInput>
-                        </mat-form-field>
-                        <mat-form-field appearance="outline" class="full-width">
-                            <mat-label>Date</mat-label>
-                            <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
-                        <div >
-                            <input class="time" placeholder="Time" [ngxTimepicker]="picker1">
-                            <ngx-material-timepicker #picker1></ngx-material-timepicker>
-                        </div>
-                        <mat-form-field appearance="outline" class="full-width">
-                            <mat-label>Message</mat-label>
-                            <textarea rows="10" matInput placeholder="Special request..."></textarea>
-                        </mat-form-field>
-                        <button class="btn btn-success" mat-raised-button type="submit">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+<div class="ui container">
+    <app-table>
+        <ng-container tableHead>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Number of People</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Special Request</th>
+        </ng-container>
+        <tr *ngFor="let reservation of reservationList">
+        <td>{{reservation.fullName}}</td>
+        <td>{{reservation.email}}</td>
+        <td>{{reservation.phoneNumber}}</td>
+        <td>{{reservation.numberOfPeople}}</td>
+        <td>{{reservation.date | date}}</td>
+        <td>{{reservation.time | date: 'HH:mm'}}</td>
+        <td>{{reservation.specialRequest}}</td>
+        </tr>
+    </app-table>
+    <a [routerLink]="['/reservation/new']" routerLinkActive="active"  class="ui button">Create new Reservation</a>
 </div>

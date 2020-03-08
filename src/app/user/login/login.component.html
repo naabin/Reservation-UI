@@ -6,7 +6,6 @@
                     <h1 class="text-center">User Signin</h1>
                     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                         <div>
-                            
                             <app-input [label]="'Username'" [inputType]="'text'" [control]="loginForm.get('username')">
                             </app-input>
                             <app-input [label]="'Password'" [inputType]="'password'" [control]="loginForm.get('password')"></app-input>

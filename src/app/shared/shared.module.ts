@@ -7,13 +7,17 @@ import { AlertComponent } from './alert/alert.component';
 import { InputComponent } from './input/input.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavigationComponent } from './navigation/navigation.component';
+import { ModalComponent } from './modal/modal.component';
+import { TableComponent } from './table/table.component';
 
 
 @NgModule({
   declarations: [
     NavigationComponent,
     AlertComponent,
-    InputComponent
+    InputComponent,
+    ModalComponent,
+    TableComponent
   ],
   imports: [
     MaterialModule,
@@ -24,7 +28,9 @@ import { NavigationComponent } from './navigation/navigation.component';
   exports: [
     NavigationComponent,
     AlertComponent,
-    InputComponent
+    InputComponent,
+    ModalComponent,
+    TableComponent
   ]
 })
 export class SharedModule { }
