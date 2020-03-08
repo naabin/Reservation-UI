@@ -1,0 +1,17 @@
+.actions:empty{
+    display: none;
+}
+
+.actions-default{
+    display: none;
+}
+.actions:empty + .actions-default{
+    display: block;
+}
+
+.modal {
+    position: relative;
+    height: auto;
+    width: auto;
+
+}

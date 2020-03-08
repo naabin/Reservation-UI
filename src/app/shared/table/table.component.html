@@ -1,0 +1,25 @@
+<table class="ui celled padded table">
+    <thead>
+        <tr>
+            <ng-content select="[tableHead]"></ng-content>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-content></ng-content>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="10">
+                <div class="ui right floated pagination menu">
+                    <a class="icon item">
+                        <i class="left chevron icon"></i>
+                    </a>
+                    <ng-content select="[tableFooter]"></ng-content>
+                    <a class="icon item">
+                        <i class="right chevron icon"></i>
+                    </a>
+                </div>
+            </th>
+        </tr>
+    </tfoot>
+</table>

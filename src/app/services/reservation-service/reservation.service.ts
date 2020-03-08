@@ -15,28 +15,24 @@ export class ReservationService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
     })
   }
 
   private remoteUrl = url;
 
   createReservation(reservation: Reservation): Observable<Reservation>{
-    return this.http.post<Reservation>(`${this.remoteUrl}api/reservation/new`,JSON.stringify(reservation), this.httpOptions)
+    return this.http.post<any>(`${this.remoteUrl}api/reservation/new`,JSON.stringify(reservation))
       .pipe(
-        (tap((r: Reservation) => this.messageService.add(`Successfully created reservation with id=${r.id}`)),
-        catchError(this.messageService.errorHandler<Reservation>('createReservation'))
+        (tap(() => this.messageService.add(`Successfully created reservation.`)),
+        catchError(this.messageService.errorHandler('createReservation'))
         )
       );
   }
 
-  getReservations(): Observable<Reservation[]>{
-    return this.http.get<Reservation[]>(`${this.remoteUrl}api/reservation/all`, this.httpOptions)
-      .pipe(
-        tap(_ => this.messageService.add('fetched all reservations')),
-        catchError(this.messageService.errorHandler<Reservation[]>('getReservations', [])
-        )
-      );
+  getReservations(): Observable<any>{
+    return this.http.get(`${this.remoteUrl}api/reservation/all`);
   }
 
   getReservationById(id: number): Observable<Reservation> {

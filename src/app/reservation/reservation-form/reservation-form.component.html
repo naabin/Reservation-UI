@@ -1,0 +1,48 @@
+<div class="container">
+    <h2 class="text-center">Reservation Form</h2>
+    <form class="form" [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <app-input [label]="'Name'" [inputType]="'text'" [control]="reservationForm.get('fullName')">
+                </app-input>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <app-input [label]="'Email'" [inputType]="'email'" [control]="reservationForm.get('email')"></app-input>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <app-input [label]="'Number of Guests'" [inputType]="'number'"
+                    [control]="reservationForm.get('numberOfPeople')"></app-input>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <mat-form-field appearance="outline">
+                    <mat-label>Date</mat-label>
+                    <input [formControl]="reservationForm.get('date')" matInput [min]="minimuDate"
+                        [matDatepicker]="picker" placeholder="Choose a date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <!-- <app-input [inputType]="'time'" [label]="'Time'" [control]="reservationForm.get('time')"></app-input> -->
+                <igx-time-picker mode="dropdown" [formControl]="reservationForm.get('time')"></igx-time-picker>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <app-input class="five wide field" [label]="'Phone Number'" [inputType]="'tel'"
+                    [control]="reservationForm.get('phoneNumber')"></app-input>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <app-input [label]="'Special Request'" class="sixteen wide field" [controlType]="'textarea'"
+                    [control]="reservationForm.get('specialRequest')"></app-input>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <button type="submit" (click)="onSubmit()" class="btn btn-lg btn-success">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
