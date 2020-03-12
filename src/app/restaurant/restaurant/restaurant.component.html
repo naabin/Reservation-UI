@@ -1,29 +1,27 @@
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-sm-12 col-md-6">
-            <div class="signup">
-                <h1 class="title">My Restaurant</h1>
-                <form [formGroup] = "restaurantForm" (ngSubmit)="onSubmit()">
-                    <div>
-                        <mat-form-field appearance="outline" class="full-width">
-                            <mat-label>Name of the Restaurant</mat-label>
-                            <input type="text" matInput placeholder="Name of your restaurant" formControlName="name"
-                                [ngClass]="{'is-invalid': submitted && f.name.errors}">
-                                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                                    <div *ngIf="f.name.errors.required">Name of the restaurant is required</div>
-                                </div> 
-                        </mat-form-field>
-                        <mat-form-field appearance="outline" class="full-width">
-                            <mat-label>Address</mat-label>   
-                            <input type="text" matInput placeholder="Address of your restaurant" formControlName="address"
-                            [ngClass]="{'is-invalid': submitted && f.address.errors}">
-                            <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
-                                <div *ngIf="f.address.errors.required">Address is required</div>
-                            </div>
-                        </mat-form-field>
-                    </div>
-                </form>
-            </div>
+        <div *ngIf="restaurantForm.errors" class="ui red label">
+                <p *ngIf="restaurantForm.errors.unknown">Unknown Error happened</p>
         </div>
-    </div>
+        <form (ngSubmit)="onSubmit()" [formGroup]="restaurantForm">
+                <app-input [label]="'Restaurants Name'" [inputType]="'text'" [control]="restaurantForm.get('name')">
+                </app-input>
+                <app-input [label]="'Address'" [inputType]="'text'" [control]="restaurantForm.get('address')">
+                </app-input>
+                <app-input [label]="'Phone Number'" [inputType]="'tel'" [control]="restaurantForm.get('phoneNumber')">
+                </app-input>
+                <ng-container formArrayName="openingHours">
+                        <div *ngFor="let opHour of openingHours.controls; index as i">
+                                <ng-container [formGroupName]="i">
+                                        <app-opening-hours [days]="days" [control]="openingHours.controls[i]"></app-opening-hours>
+                                </ng-container>
+                        </div>
+                </ng-container>
+                <button type="button" class="ui primary button" [hidden]="openingHours.length == 7"
+                        (click)="addOpeningHours()">Add OpeningHours</button>
+                <div class="field text-center">
+                        <button [ngClass]="loading ?'ui primary loading button': ''" class="ui secondary button"
+                                type="submit">Submit</button>
+                </div>
+        </form>
 </div>
+{{restaurantForm.value | json}}

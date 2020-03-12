@@ -38,7 +38,8 @@ export class LoginComponent implements OnInit {
     this.userService.authenticateUser(this.loginForm.get('username').value, this.loginForm.get('password').value)
       .subscribe({
         next: () => {
-          this.router.navigateByUrl('/reservation')
+          this.alertService.success('Login success');
+          this.router.navigateByUrl('/restaurant')
         },
         error: (error) => {
           if(error){

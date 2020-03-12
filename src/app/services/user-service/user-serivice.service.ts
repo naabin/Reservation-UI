@@ -32,13 +32,12 @@ export class UserSerivice {
   public get currentUserValue(): BehaviorSubject<User> {
     return this.currentUserSubject;
   }
-  registerUser(user: User): Observable<any>{
-    return this.http.post<any>(this.remoteUrl + 'api/user/register', JSON.stringify(user), this.httpOptions)
+  registerUser(user: User): Observable<string>{
+    return this.http.post<string>(this.remoteUrl + 'api/user/register', JSON.stringify(user), this.httpOptions)
       .pipe(
-        (tap((newUser: User) => this.messageService.add(`added user with id=${newUser.id}`)),
-        catchError(this.messageService.errorHandler<User>('registerUser'))
-        )
-      )
+        tap( (val) => this.messageService.add(val)),
+        catchError(this.messageService.errorHandler<string>('registerUser' , ''))
+      );
   }
 
   getAllUsers(): Observable<User[]> {
@@ -72,14 +71,12 @@ export class UserSerivice {
   }
 
   authenticateUser(username: string, password: string) {
-    return this.http.post<any>(`${url}authenticate`, JSON.stringify({'username': username, 'password': password}), this.httpOptions)
+    return this.http.post<User>(`${url}authenticate`, JSON.stringify({'username': username, 'password': password}), this.httpOptions)
       .pipe(
-        tap(res => {
-        if(res !== null && res !== undefined){
-          localStorage.setItem('token', JSON.stringify(res.jwtToken));
-          this.currentUserSubject.next(res);
-        }
-        return res;
+        tap(user => {
+          this.currentUserSubject.next(user);
+          localStorage.setItem('token', JSON.stringify(user.jwtToken));
+          localStorage.setItem('userId', JSON.stringify(user.id))
       }))
   }
 
@@ -91,6 +88,8 @@ export class UserSerivice {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('restaurantId');
     this.currentUserSubject.next(null);
   }
 }

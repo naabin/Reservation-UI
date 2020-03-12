@@ -17,7 +17,7 @@ export class ReservationComponent implements OnInit {
 
   reservationList: Reservation[];
 
-  showModal = false;
+  // showModal = false;
   constructor(private reservationService: ReservationService, private messageService: MessageService) { 
   }
 
@@ -32,18 +32,6 @@ export class ReservationComponent implements OnInit {
       }
     })
 
-  }
-
-  onSubmit(reservation: Reservation){
-    this.showModal = false;
-    this.reservationService.createReservation(reservation).subscribe({
-      next: (res) => {
-        this.messageService.add('successfully submitted the reservation request.')
-      },
-      error: (error)=> {
-        console.log(error);
-      }
-    })
   }
 
 }
