@@ -1,36 +1,43 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-sm-12 col-md-6">
-            <div class="signup">
-                <h1 class="text-center">User Signup</h1>
-                <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-                    <div>
+            <h1 class="text-center">User Signup</h1>
+            <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                <div>
                     <app-input [label]="'First Name'" [inputType]="'text'" [control]="signupForm.get('firstName')">
                     </app-input>
                     <app-input [label]="'Last Name'" [inputType]="'text'" [control]="signupForm.get('lastName')">
                     </app-input>
-
-
-                    <app-input [label]="'Email'" [inputType]="'email'" [control]="signupForm.get('email')"></app-input>
+                    <app-input [label]="'Email'" [inputType]="'email'" [control]="signupForm.get('email')">
+                    </app-input>
                     <app-input [label]="'Username'" [inputType]="'text'" [control]="signupForm.get('username')">
                     </app-input>
                     <app-input [label]="'Password'" [inputType]="'password'" [control]="signupForm.get('password')">
                     </app-input>
-                    <div *ngIf="signupForm.get('password').touched && signupForm.get('passwordConfirmation').touched && signupForm.errors" class="ui red label">
-                            <p *ngIf="signupForm.errors.passwordDidNotMatch">
-                                Passwords did not match
-                            </p>
-                        </div>
-                    <app-input [label]="'Confirm Password'" [inputType]="'password'" [control]="signupForm.get('passwordConfirmation')"></app-input>
+                    <div *ngIf="signupForm.get('password').touched && signupForm.get('passwordConfirmation').touched && signupForm.errors"
+                        class="ui red label">
+                        <p *ngIf="signupForm.errors.passwordDidNotMatch">
+                            Passwords did not match
+                        </p>
                     </div>
-                    <button type="submit" [ngClass]="loading ? 'ui primary loading button' : '' " [disabled]="signupForm.invalid"
-                    class="compact ui primary button" mat-raised-button>Register</button>
-                <button class="compact ui blue basic button" type="button" (click)="signupForm.reset()">Reset</button>
-                    
-                </form>
-                <div class="ui divider">
-                    <h5><b class="ui text">Already have an account ? </b><a [routerLink]="['/user/login']" routerLinkActive="active">Login</a></h5>
+                    <app-input [label]="'Confirm Password'" [inputType]="'password'"
+                        [control]="signupForm.get('passwordConfirmation')"></app-input>
                 </div>
+                <div class="text-center">
+                    <button type="submit" [ngClass]="loading ? 'ui primary loading button' : '' "
+                        [disabled]="signupForm.invalid" class="compact ui primary button"
+                        mat-raised-button>Register</button>
+                    <button class="compact ui blue basic button" type="button"
+                        (click)="signupForm.reset()">Reset</button>
+                </div>
+                <div class="ui red lable" *ngIf="signupForm.errors">
+                    <p *ngIf="signupForm.errors.unknown">Error occured during registration process. Please try
+                        again.</p>
+                </div>
+            </form>
+            <div class="ui divider">
+                <h5><b class="ui text">Already have an account ? </b><a [routerLink]="['/user/login']"
+                        routerLinkActive="active">Login</a></h5>
             </div>
         </div>
     </div>

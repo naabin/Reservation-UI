@@ -46,23 +46,26 @@ export class UserUiComponent implements OnInit {
      if(this.signupForm.invalid){
        return;
      }
+     this.loading = true;
      this.user.firstName = this.signupForm.get('firstName').value;
      this.user.lastName = this.signupForm.get('lastName').value;
      this.user.email = this.signupForm.get('email').value;
      this.user.username = this.signupForm.get('username').value;
      this.user.password = this.signupForm.get('password').value;
      
-
-     this.userService.registerUser(this.user).pipe(
-       first())
-      .subscribe(() => {
-        this.alertService.success("Registration successful",true);
-        this.router.navigateByUrl['/login'];
-      },
-      error => {
-        this.alertService.error(error.message);
-        this.loading = false;
-      })
+     this.userService.registerUser(this.user).subscribe({
+       next: (val) => {
+         this.alertService.success(val);
+          this.router.navigateByUrl('/user/login');
+          this.loading = false;
+       },
+       error: (err) => {
+         if(err){
+          this.signupForm.setErrors({unknown: true});
+          this.loading = false;
+         }
+       }
+     })
   }
 
   ngOnInit() {

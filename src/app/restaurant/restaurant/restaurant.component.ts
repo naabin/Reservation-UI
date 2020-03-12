@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Restaurant } from 'src/models/restaurant';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { RestaurantService } from 'src/app/services/restaurant-service/restaurant.service';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert-service/alert.service';
-import { first } from 'rxjs/operators';
+import { UserSerivice } from 'src/app/services/user-service/user-serivice.service';
+
 
 @Component({
   selector: 'app-restaurant',
@@ -13,58 +14,63 @@ import { first } from 'rxjs/operators';
 })
 export class RestaurantComponent implements OnInit {
 
-  restaurant: Restaurant = new Restaurant();
-
-  restaurantForm: FormGroup;
-
+  restaurant: Restaurant;
   loading = false;
 
-  submitted = false;
-
-  returnUrl: string;
 
 
+  days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday',];
 
+  restaurantForm = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    address: new FormControl('', [Validators.required]),
+    phoneNumber: new FormControl('', [Validators.required]),
+    openingHours: new FormArray([])
+  })
+
+  openingHours = this.restaurantForm.get('openingHours') as FormArray;
+
+  
   constructor(
     private restaurantService: RestaurantService,
-    private formBuilder: FormBuilder,
     private router: Router,
+    private userService: UserSerivice,
     private alertService: AlertService
-  ) { }
+  ) { 
 
-  get f() {return this.restaurantForm.controls};
-
-  onSubmit(){
-    this.submitted = true;
-    this.restaurant.name = this.f.name.value;
-    this.restaurant.address = this.f.address.value;
-    this.restaurant.phoneNumber = this.f.phoneNumber.value;
-    this.restaurant.openingHours = this.f.openingHours.value;
-
-    this.loading = true;
-
-    this.restaurantService.createRestaurant(this.restaurant)
-      .pipe(
-        first())
-        .subscribe(data => {
-          this.alertService.success('Restaurant profile updated', true);
-          this.router.navigate[this.returnUrl];
-          this.loading = false;
-          this.restaurant = new Restaurant();
-        },
-        error => {
-          this.alertService.error(error.message);
-          this.loading = false;
-        })
   }
 
-  ngOnInit() {
-    this.restaurantForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      address: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      openingHours: ['', Validators.required]
+
+  addOpeningHours(day: string){
+    if(this.openingHours.length > 6){
+      return;
+    }
+    let openingHourForm = new FormGroup({
+      dayOfWeek: new FormControl(''),
+      openFrom: new FormControl(''),
+      openUntil: new FormControl('')
+    });
+    openingHourForm.patchValue({dayOfWeek: day})
+    this.openingHours.push(openingHourForm);
+  }
+
+
+  onSubmit(){
+    this.loading = true;
+    this.restaurantService.createRestaurant(this.restaurantForm.value)
+    .subscribe({
+      next: () => {
+        this.alertService.success('Created restaurant successfully');
+        this.router.navigateByUrl('/reservation');
+      },
+      error: () => {
+        this.alertService.error('Unknown Error happened');
+        this.restaurantForm.setErrors({unknown: true});
+        this.loading = false;
+      }
     })
+  }
+  ngOnInit() {
   }
 
 }
