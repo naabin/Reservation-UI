@@ -1,6 +1,6 @@
 <mat-form-field appearance="outline" class="full-width">
     <mat-label>{{label}}</mat-label>
-    <input *ngIf="controlType === 'input'" [ngClass]="{'is-invalid': showErrors()}" matInput [type]="inputType" [formControl]="control" placeholder="{{label}}" />
+    <input [value]="givenValue" *ngIf="controlType === 'input'" [ngClass]="{'is-invalid': showErrors()}" matInput [type]="inputType" [formControl]="control" placeholder="{{label}}" />
     <textarea *ngIf=" controlType === 'textarea'" matInput [cols]="10" [rows]="5" [formControl]="control"></textarea>
     <div *ngIf="control.touched && control.dirty && control.errors" class="invalid-feedback">
         <p *ngIf="control.errors.required">{{label}} is required</p>

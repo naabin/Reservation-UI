@@ -25,7 +25,6 @@
                 </mat-form-field>
             </div>
             <div class="col-sm-12 col-md-4">
-                <!-- <app-input [inputType]="'time'" [label]="'Time'" [control]="reservationForm.get('time')"></app-input> -->
                 <igx-time-picker mode="dropdown" [formControl]="reservationForm.get('time')"></igx-time-picker>
             </div>
             <div class="col-sm-12 col-md-4">
@@ -41,7 +40,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12 text-center">
-                <button type="submit" (click)="onSubmit()" class="btn btn-lg btn-success">Submit</button>
+                <button [ngClass]="loading ?'ui primary loading button': ''"  type="submit" (click)="onSubmit()" class="btn btn-lg btn-success">Submit</button>
             </div>
         </div>
     </form>

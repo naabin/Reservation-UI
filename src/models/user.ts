@@ -8,5 +8,6 @@ export class User {
     username: string;
     password: string;
     jwtToken: string;
+    restaurantId: string;
     userRoles: UserRole[];
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserSerivice } from 'src/app/services/user-service/user-serivice.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
@@ -10,13 +10,15 @@ import { User } from 'src/models/user';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit{
-
+  
   constructor(private userService: UserSerivice, private route: Router) {
 
     this.isActive$ = this.userService.currentUserValue;
+    this.restaurantId$ = this.userService.currentRestaurantValue;
    }
-
   isActive$: BehaviorSubject<User>;
+  restaurantId$: BehaviorSubject<string>;
+  
 
   logout() {
     this.userService.logout();
@@ -25,7 +27,6 @@ export class NavigationComponent implements OnInit{
 
 
   ngOnInit() {
-
   }
 
 }

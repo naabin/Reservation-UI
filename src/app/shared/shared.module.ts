@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ModalComponent } from './modal/modal.component';
 import { TableComponent } from './table/table.component';
+import { TabsComponent } from './tabs/tabs.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { TableComponent } from './table/table.component';
     AlertComponent,
     InputComponent,
     ModalComponent,
-    TableComponent
+    TableComponent,
+    TabsComponent
   ],
   imports: [
     MaterialModule,
@@ -30,7 +32,8 @@ import { TableComponent } from './table/table.component';
     AlertComponent,
     InputComponent,
     ModalComponent,
-    TableComponent
+    TableComponent,
+    TabsComponent
   ]
 })
 export class SharedModule { }

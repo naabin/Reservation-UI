@@ -7,15 +7,16 @@ import { ReservationFormComponent } from './reservation-form/reservation-form.co
 
 const routes: Routes = [
   {
-    path: '',
-    component: ReservationComponent,
-    canActivate: [AuthGuard]
+    path: 'new/:id',
+    component: ReservationFormComponent,
+    canActivate: [AuthGuard],
+    pathMatch:'full'
   },
   {
-    path: 'new',
-    component: ReservationFormComponent,
-    canActivate: [AuthGuard]
-  }
+    path: ':id',
+    component: ReservationComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

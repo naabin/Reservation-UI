@@ -1,7 +1,4 @@
 <div class="container">
-        <div *ngIf="restaurantForm.errors" class="ui red label">
-                <p *ngIf="restaurantForm.errors.unknown">Unknown Error happened</p>
-        </div>
         <form (ngSubmit)="onSubmit()" [formGroup]="restaurantForm">
                 <app-input [label]="'Restaurants Name'" [inputType]="'text'" [control]="restaurantForm.get('name')">
                 </app-input>
@@ -12,7 +9,8 @@
                 <ng-container formArrayName="openingHours">
                         <div *ngFor="let opHour of openingHours.controls; index as i">
                                 <ng-container [formGroupName]="i">
-                                        <app-opening-hours [days]="days" [control]="openingHours.controls[i]"></app-opening-hours>
+                                        <app-opening-hours [days]="days" [control]="openingHours.controls[i]">
+                                        </app-opening-hours>
                                 </ng-container>
                         </div>
                 </ng-container>
@@ -22,6 +20,10 @@
                         <button [ngClass]="loading ?'ui primary loading button': ''" class="ui secondary button"
                                 type="submit">Submit</button>
                 </div>
+                <div class="field text-center">
+                        <div *ngIf="restaurantForm.errors" class="ui red label">
+                                <p *ngIf="restaurantForm.errors.unknown">Unknown Error happened</p>
+                        </div>
+                </div>
         </form>
 </div>
-{{restaurantForm.value | json}}

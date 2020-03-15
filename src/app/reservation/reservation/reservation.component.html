@@ -1,5 +1,5 @@
-<div class="ui container">
-    <app-table>
+<div class="ui container" [ngClass]="loading ? 'ui active loader' : ''">
+    <app-table *ngIf="reservationList.length > 0; else noBookings">
         <ng-container tableHead>
             <th>Full Name</th>
             <th>Email</th>
@@ -10,14 +10,22 @@
             <th>Special Request</th>
         </ng-container>
         <tr *ngFor="let reservation of reservationList">
-        <td>{{reservation.fullName}}</td>
-        <td>{{reservation.email}}</td>
-        <td>{{reservation.phoneNumber}}</td>
-        <td>{{reservation.numberOfPeople}}</td>
-        <td>{{reservation.date | date}}</td>
-        <td>{{reservation.time | date: 'HH:mm'}}</td>
-        <td>{{reservation.specialRequest}}</td>
+            <td>{{reservation.fullName}}</td>
+            <td>{{reservation.email}}</td>
+            <td>{{reservation.phoneNumber}}</td>
+            <td>{{reservation.numberOfPeople}}</td>
+            <td>{{reservation.date | date}}</td>
+            <td>{{reservation.time | date: 'HH:mm a'}}</td>
+            <td>{{reservation.specialRequest}}</td>
         </tr>
     </app-table>
-    <a [routerLink]="['/reservation/new']" routerLinkActive="active"  class="ui button">Create new Reservation</a>
+    <div class="row">
+        <ng-template class="row" #noBookings>
+            <div class="col-sm-12">
+                <h3 class="text-center">You do not have any bookings yet.</h3>
+            </div>
+        </ng-template>
+    </div>
+    <a [routerLink]="['/reservation/new/'+restaurantId]" [routerLinkActiveOptions]="{'exact': 'true'}"
+        routerLinkActive="active" class="ui button">Create new Reservation</a>
 </div>

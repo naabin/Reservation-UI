@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { MessageService } from '../message-service/message.service';
 import { tap, catchError } from 'rxjs/operators';
+import { Restaurant } from 'src/models/restaurant';
 
 @Injectable({
   providedIn: 'root'
@@ -22,17 +23,16 @@ export class ReservationService {
 
   private remoteUrl = url;
 
-  createReservation(reservation: Reservation): Observable<Reservation>{
-    return this.http.post<any>(`${this.remoteUrl}api/reservation/new`,JSON.stringify(reservation))
+  createReservation(reservation: Reservation, restaurantId: string){
+    return this.http.post<{restaurantId: number}>(`${this.remoteUrl}api/reservation/new`,JSON.stringify(reservation), {params: {restaurantId: restaurantId}})
       .pipe(
-        (tap(() => this.messageService.add(`Successfully created reservation.`)),
-        catchError(this.messageService.errorHandler('createReservation'))
-        )
+        (tap(() => this.messageService.add(`Successfully created reservation.`)))
       );
   }
 
-  getReservations(): Observable<any>{
-    return this.http.get(`${this.remoteUrl}api/reservation/all`);
+  getReservations(restaurantId: string): Observable<any>{
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    return this.http.get(`${this.remoteUrl}api/reservation/all`, {params: {restaurantId: restaurantId, userId: userId}}) ;
   }
 
   getReservationById(id: number): Observable<Reservation> {
