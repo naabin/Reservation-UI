@@ -10,7 +10,7 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   constructor(private elementRef: ElementRef) { }
 
-  @Output() dismiss = new EventEmitter<boolean>();
+  @Output() dismiss = new EventEmitter();
 
   ngOnInit() {
     document.body.appendChild(this.elementRef.nativeElement);

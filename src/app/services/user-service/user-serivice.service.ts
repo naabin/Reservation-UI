@@ -5,6 +5,7 @@ import { User } from 'src/models/user';
 import { Observable, BehaviorSubject} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import { MessageService } from '../message-service/message.service';
+import { Restaurant } from 'src/models/restaurant';
 
 
 @Injectable({
@@ -14,6 +15,8 @@ export class UserSerivice {
 
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
+  private currentRestaurantSubject: BehaviorSubject<string>;
+  public currentRestaurant: Observable<string>;
   
   private remoteUrl = url;
 
@@ -26,8 +29,13 @@ export class UserSerivice {
   constructor(private http: HttpClient, private messageService: MessageService) { 
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('token')));
     this.currentUser = this.currentUserSubject.asObservable();
+    this.currentRestaurantSubject = new BehaviorSubject<string>(JSON.parse(localStorage.getItem('restaurantId')));
+    this.currentRestaurant = this.currentRestaurantSubject.asObservable();
   }
 
+  public get currentRestaurantValue(): BehaviorSubject<string>{
+      return this.currentRestaurantSubject;
+  }
 
   public get currentUserValue(): BehaviorSubject<User> {
     return this.currentUserSubject;
@@ -50,10 +58,9 @@ export class UserSerivice {
 
   getUser(id: number): Observable<User> {
     const url = `${this.remoteUrl}api/user/${id}`;
-    return this.http.get<User>(url, this.httpOptions)
+    return this.http.get<User>(url)
       .pipe(
         tap(_ => this.messageService.add(`fetched user id=$${id}`)),
-        catchError(this.messageService.errorHandler<User>(`getUser id=${id}`))
       )
   }
 
@@ -75,8 +82,10 @@ export class UserSerivice {
       .pipe(
         tap(user => {
           this.currentUserSubject.next(user);
+          this.currentRestaurantSubject.next(user.restaurantId);
           localStorage.setItem('token', JSON.stringify(user.jwtToken));
-          localStorage.setItem('userId', JSON.stringify(user.id))
+          localStorage.setItem('userId', JSON.stringify(user.id)),
+          localStorage.setItem('restaurantId', JSON.stringify(user.restaurantId))
       }))
   }
 
@@ -91,5 +100,6 @@ export class UserSerivice {
     localStorage.removeItem('userId');
     localStorage.removeItem('restaurantId');
     this.currentUserSubject.next(null);
+    this.currentRestaurantSubject.next(null);
   }
 }

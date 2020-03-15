@@ -23,16 +23,15 @@ export class RestaurantService {
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
   createRestaurant(restuarant: Restaurant): Observable<Restaurant>{
-    return this.http.post<Restaurant>(`${this.remoteUrl}api/restaurant/new`, JSON.stringify(restuarant), {params: {
+    return this.http.post<Restaurant>(`${this.remoteUrl}api/restaurant/new`, restuarant, {params: {
       userId: JSON.parse(localStorage.getItem('userId'))
     }})
       .pipe(
         (tap((restaurant: Restaurant) => {
           this.messageService.add(`Successfully created restaurant with an id:`);
+          localStorage.removeItem('restaurantId');
           localStorage.setItem('restaurantId', JSON.stringify(restaurant.id))
-        }),
-        catchError(this.messageService.errorHandler<Restaurant>(`createRestaurant`)))
-      )
+        })))
   }
 
   getRestaurants(): Observable<Restaurant[]>{
@@ -43,13 +42,11 @@ export class RestaurantService {
       )
   }
 
-  getRestaurantById(id: number): Observable<Restaurant> {
+  getRestaurant(id:string): Observable<Restaurant> {
     const url = `${this.remoteUrl}api/restaurant/${id}`;
-    return this.http.get<Restaurant>(url, this.httpOptions)
+    return this.http.get<Restaurant>(url, {params: {userId: JSON.parse(localStorage.getItem('userId'))}})
       .pipe(
         tap(_ => this.messageService.add(`fetched restaurant with an id = ${_.id}`)),
-        catchError(this.messageService.errorHandler<Restaurant>('getRestaurantById')
-      )
       );
   }
 

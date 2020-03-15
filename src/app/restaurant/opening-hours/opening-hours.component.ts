@@ -11,6 +11,8 @@ export class OpeningHoursComponent implements OnInit {
   @Input() control: FormControl;
   @Input() days: [];
 
+  date = new Date();
+
   constructor() { }
 
   ngOnInit() {

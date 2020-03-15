@@ -9,12 +9,18 @@ import { SharedModule } from '../shared/shared.module';
 import { IgxTimePickerModule } from 'igniteui-angular';
 import { MatSelectModule } from '@angular/material';
 import { OpeningHoursComponent } from './opening-hours/opening-hours.component';
+import { RestaurantHomeComponent } from './restaurant-home/restaurant-home.component';
+import { RestaurantProfileComponent } from './restaurant-profile/restaurant-profile.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 @NgModule({
   declarations: [
     RestaurantComponent,
+    RestaurantHomeComponent,
     OpeningHoursComponent,
+    RestaurantProfileComponent,
+    UserProfileComponent,
   ],
   imports: [
     CommonModule,

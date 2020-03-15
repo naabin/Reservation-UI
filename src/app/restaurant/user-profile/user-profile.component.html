@@ -1,0 +1,40 @@
+<div [ngClass]="loading ? 'ui active loader' : ''">
+    <form  *ngIf="user" [formGroup]="userForm">
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <app-input [label]="'First Name'" [control]="userForm.get('firstName')" [givenValue]="user.firstName">
+                </app-input>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <app-input [label]="'Last Name'" [control]="userForm.get('lastName')" [givenValue]="user.lastName">
+                </app-input>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <app-input [label]="'Username'" [control]="userForm.get('username')" [givenValue]="user.username">
+                </app-input>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <app-input [label]="'Email'" [control]="userForm.get('email')" [givenValue]="user.email">
+                </app-input>
+            </div>
+        </div>
+        <div class="row">
+            <h5 class="text-center pl-3">Change Password</h5>
+            <div class="col-sm-12 col-md-12">
+                <app-input [inputType]="'password'" [control]="userForm.get('password')" [label]="'Current password'">
+                </app-input>
+            </div>
+            <div class="col sm-12 col-md-6">
+                <app-input [inputType]="'password'" [control]="userForm.get('newPassword')" [label]="'New Password'">
+                </app-input>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <app-input [inputType]="'password'" [control]="userForm.get('newPasswordConfirmation')"
+                    [label]="'Retype New Password'"></app-input>
+            </div>
+        </div>
+
+    </form>
+</div>

@@ -14,43 +14,31 @@ import { UserSerivice } from 'src/app/services/user-service/user-serivice.servic
 })
 export class RestaurantComponent implements OnInit {
 
-  restaurant: Restaurant;
   loading = false;
-
-
-
   days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday',];
-
   restaurantForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     address: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
     openingHours: new FormArray([])
   })
-
   openingHours = this.restaurantForm.get('openingHours') as FormArray;
-
-  
   constructor(
     private restaurantService: RestaurantService,
     private router: Router,
     private userService: UserSerivice,
     private alertService: AlertService
   ) { 
-
   }
-
-
-  addOpeningHours(day: string){
+  addOpeningHours(){
     if(this.openingHours.length > 6){
       return;
     }
     let openingHourForm = new FormGroup({
       dayOfWeek: new FormControl(''),
       openFrom: new FormControl(''),
-      openUntil: new FormControl('')
+      openUntil: new FormControl()
     });
-    openingHourForm.patchValue({dayOfWeek: day})
     this.openingHours.push(openingHourForm);
   }
 
@@ -64,7 +52,6 @@ export class RestaurantComponent implements OnInit {
         this.router.navigateByUrl('/reservation');
       },
       error: () => {
-        this.alertService.error('Unknown Error happened');
         this.restaurantForm.setErrors({unknown: true});
         this.loading = false;
       }

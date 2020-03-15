@@ -11,7 +11,7 @@
         </a>
       </li>
       <li *ngIf="isActive$ | async" class="nav-item">
-        <a [routerLink]="['/reservation']" routerLinkActive="router-link-active" class="nav-link waves-light"
+        <a *ngIf="restaurantId$ | async"  [routerLink]="['/reservation/'+restaurantId$.value]" routerLinkActive="router-link-active" class="nav-link waves-light"
           mdbWavesEffect>
           <mdb-icon fas icon="book"></mdb-icon> My Bookings
         </a>
