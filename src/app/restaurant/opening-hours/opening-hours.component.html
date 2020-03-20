@@ -4,7 +4,10 @@
             <mat-form-field appearance="outline">
                 <mat-label>Day</mat-label>
                 <mat-select [formControl]="control.get('dayOfWeek')">
-                    <mat-option *ngFor="let day of days" [value]="day">{{day}}</mat-option>
+                    <ng-container *ngIf="days && days.length > 0">
+                            <mat-option *ngFor="let day of days" [value]="day">{{day}}</mat-option>
+                    </ng-container>
+                <mat-option  *ngIf=" givenOpeningHours &&  givenOpeningHours.dayOfWeek" [value]="givenOpeningHours.dayOfWeek">{{givenOpeningHours.dayOfWeek}}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
@@ -12,14 +15,16 @@
     <div class="col-sm-3 col-md-3">
         <div class="field">
             <span>From</span>
-            <igx-time-picker [format]="'hh:mm tt'" [itemsDelta]="{hours: 1, minutes: 10}" [isSpinLoop]="false" mode="dropdown" [formControl]="control.get('openFrom')">
+            <igx-time-picker [value]="givenOpenFrom"  [itemsDelta]="{hours: 1, minutes: 10}" [isSpinLoop]="false"
+                mode="dropdown" [formControl]="control.get('openFrom')">
             </igx-time-picker>
         </div>
     </div>
     <div class="col-sm-3 col-md-3">
         <div class="field">
-            <span>From</span>
-            <igx-time-picker [format]="'hh:mm tt'" [itemsDelta]="{hours: 1, minutes: 10}" [isSpinLoop]="false" mode="dropdown" [formControl]="control.get('openUntil')">
+            <span>Until</span>
+            <igx-time-picker [value]="givenOpenUntil"  [itemsDelta]="{hours: 1, minutes: 10}" [isSpinLoop]="false"
+                mode="dropdown" [formControl]="control.get('openUntil')">
             </igx-time-picker>
         </div>
     </div>

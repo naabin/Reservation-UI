@@ -25,8 +25,9 @@ export class RestaurantProfileComponent implements OnInit {
         phoneNumber: new FormControl(''),
         openingHours: new FormArray([])
       })
-      this.restaurantForm.get('openingHours') as FormArray;
+      this.openingHours = this.restaurantForm.get('openingHours') as FormArray;
    }
+  
 
   ngOnInit() {
     this.route.params.pipe(
@@ -43,6 +44,15 @@ export class RestaurantProfileComponent implements OnInit {
         this.loading = false;
       }
     })
+  }
+
+  openHours(){
+    let openHourFormGroup = new FormGroup({
+      'dayOfWeek': new FormControl(''),
+      'openFrom': new FormControl(''),
+      'openUntil': new FormControl('')
+    })
+    this.openingHours.push(openHourFormGroup);
   }
 
 }

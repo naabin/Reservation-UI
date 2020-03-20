@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { UserUiComponent } from './user-signup/user-ui.component';
 import { UserAccountComponent } from './user-account/user-account.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const routes: Routes = [
     {
@@ -23,6 +24,10 @@ const routes: Routes = [
         path: 'user',
         component: UserAccountComponent,
         canActivate: [AuthGuard]
+    },
+    {
+        path: 'passwordreset',
+        component: ForgotPasswordComponent
     }
 ]
 

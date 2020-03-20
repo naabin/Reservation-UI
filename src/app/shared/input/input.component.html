@@ -5,6 +5,7 @@
     <div *ngIf="control.touched && control.dirty && control.errors" class="invalid-feedback">
         <p *ngIf="control.errors.required">{{label}} is required</p>
         <p *ngIf="control.errors.nonUniqueUsername">Username is taken</p>
+        <p *ngIf="control.errors.emailExists">Email already exists. Try Login instead</p>
         <p *ngIf="control.errors.noConnection">Unknown error occured. Please check the internet connection</p>
         <p *ngIf="control.errors.email">Enter a valid email</p>
         <p *ngIf="control.errors.minlength">
@@ -12,5 +13,8 @@
             {{control.errors.minlength.requiredLength}}
         </p>
     </div>
+    <span class="float-right">
+        <ng-content></ng-content>
+    </span>
 </mat-form-field>
 
