@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { OpeningHours } from 'src/models/openingHours';
 
 @Component({
   selector: 'app-opening-hours',
@@ -10,12 +11,18 @@ export class OpeningHoursComponent implements OnInit {
 
   @Input() control: FormControl;
   @Input() days: [];
+  @Input() givenOpeningHours: OpeningHours;
 
-  date = new Date();
+  givenOpenFrom: Date = new Date();
+  givenOpenUntil: Date = new Date();
 
-  constructor() { }
+  constructor() {
+   }
 
   ngOnInit() {
+    this.givenOpenFrom = new Date(this.givenOpeningHours && this.givenOpeningHours.openFrom);
+    this.givenOpenUntil = new Date(this.givenOpeningHours && this.givenOpeningHours.openUntil);
+    console.log(this.givenOpenFrom)
   }
 
 }

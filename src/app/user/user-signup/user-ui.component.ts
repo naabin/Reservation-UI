@@ -6,6 +6,7 @@ import { Router} from '@angular/router';
 import { AlertService } from 'src/app/services/alert-service/alert.service';
 import { first } from 'rxjs/operators';
 import { UniqueUsernameValidator } from '../unique-username';
+import { UniquEmailValidator } from '../unique-email';
 import { MatchPasswordVaildator } from '../matchpassword';
 
 @Component({
@@ -23,7 +24,7 @@ export class UserUiComponent implements OnInit {
   signupForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [Validators.required, Validators.email], [this.uniqueEmailCheck.validate]),
     username: new FormControl('', [Validators.required],  [this.uniquUsernameCheck.validate]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     passwordConfirmation: new FormControl('', [Validators.required, Validators.minLength(6)])
@@ -36,6 +37,7 @@ export class UserUiComponent implements OnInit {
     private router: Router,
     private alertService: AlertService,
     private uniquUsernameCheck: UniqueUsernameValidator,
+    private uniqueEmailCheck: UniquEmailValidator,
     private matchPassword: MatchPasswordVaildator
     ) { 
       if(this.userService.currentUserValue){

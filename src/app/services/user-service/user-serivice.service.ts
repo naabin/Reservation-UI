@@ -66,15 +66,33 @@ export class UserSerivice {
 
   deleteUser(user: User): Observable<User>{
     const id = typeof user === 'number' ? user : user.id;
-
-    
-
     const url = `${this.remoteUrl}api/user/${id}`;
     return this.http.delete<User>(url, this.httpOptions)
       .pipe(
         tap(_ => this.messageService.add(`deleted user id=${id}`)),
         catchError(this.messageService.errorHandler<User>('deleteUser'))
       )
+  }
+
+  sendToken(email: string){
+    return this.http.post<any>(`${this.remoteUrl}api/user/sendtoken`, 
+    {}, {params: {email: email}})
+          .pipe(
+            tap( (val) => this.messageService.add(val)),
+        )
+  }
+
+  validateToken(token: string){
+    return this.http.post<any>(`${this.remoteUrl}api/user/validatetoken`, {}, {params: {resetToken: token}})
+    .pipe(
+      tap( (val) => this.messageService.add(val)))
+  }
+
+  resetPassword(email: string, password: string){
+    return this.http.post<any>(`${this.remoteUrl}api/user/resetpassword`, {}, {params: {email: email, password: password}})
+    .pipe(
+      tap( (val) => this.messageService.add(val))
+  )
   }
 
   authenticateUser(username: string, password: string) {
@@ -93,6 +111,10 @@ export class UserSerivice {
     return this.http.post<{available: boolean}>(`${this.remoteUrl}api/user/checkuniqueuser`, {}, {params: {
       username: username
     }})
+  }
+
+  uniqueEmailAvailable(email: string){
+    return this.http.post<{available: boolean}>(`${this.remoteUrl}api/user/checkavailableemail`, {}, {params: {email: email}})
   }
 
   logout() {

@@ -7,6 +7,8 @@ import { UserUiComponent } from './user-signup/user-ui.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { MatIconModule } from '@angular/material';
 
 
 @NgModule({
@@ -14,6 +16,7 @@ import { SharedModule } from '../shared/shared.module';
     LoginComponent,
     UserAccountComponent,
     UserUiComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -22,6 +25,7 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     MaterialModule,
     SharedModule,
+    MatIconModule
   ]
 })
 export class UserModule { }

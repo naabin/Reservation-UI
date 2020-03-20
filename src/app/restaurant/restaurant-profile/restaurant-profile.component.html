@@ -1,9 +1,27 @@
 <div [ngClass]="loading ? 'ui active loader' : ''" class="row">
     <div class="col-sm-12 col-md-12">
         <form *ngIf="restaurant" [formGroup]="restaurantForm">
-            <div  class="row">
+            <div class="row">
                 <div class="col-sm-6 col-md-12">
-                    <app-input [label]="'Restaurant Name'" [control]="restaurantForm.get('name')" [givenValue]="restaurant.name"></app-input>
+                    <app-input [label]="'Restaurant Name'" [control]="restaurantForm.get('name')"
+                        [givenValue]="restaurant.name"></app-input>
+                    <app-input [label]="'Address'" [control]="restaurantForm.get('address')"
+                        [givenValue]="restaurant.address"></app-input>
+                    <app-input [label]="'Contact Number'" [control]="restaurantForm.get('phoneNumber')"
+                        [givenValue]="restaurant.phoneNumber"></app-input>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button (click)="openHours()" class="ui success button">Opening Hours</button>
+                    <ng-container *ngIf="restaurant && restaurant.openingHours" formArrayName="openingHours">
+                        <div *ngFor="let opHour of openingHours.controls; index as i">
+                            <ng-container [formGroupName]="i">
+                                <app-opening-hours [givenOpeningHours]="restaurant.openingHours[i]" [control]="openingHours.controls[i]">
+                                </app-opening-hours>
+                            </ng-container>
+                        </div>
+                    </ng-container>
                 </div>
             </div>
         </form>

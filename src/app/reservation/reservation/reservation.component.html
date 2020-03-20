@@ -1,5 +1,5 @@
-<div class="ui container" [ngClass]="loading ? 'ui active loader' : ''">
-    <app-table *ngIf="reservationList.length > 0; else noBookings">
+<div *ngIf="reservationList.length > 0; else noBookings" class="ui container">
+    <app-table>
         <ng-container tableHead>
             <th>Full Name</th>
             <th>Email</th>
@@ -19,13 +19,15 @@
             <td>{{reservation.specialRequest}}</td>
         </tr>
     </app-table>
-    <div class="row">
-        <ng-template class="row" #noBookings>
+    <a [routerLink]="['/reservation/new/'+restaurantId]" [routerLinkActiveOptions]="{'exact': 'true'}"
+        routerLinkActive="active" class="ui button">Create new Reservation</a>
+</div>
+<div [ngClass]="loading ? 'ui active loader' : ''" class="ui container">
+    <div class="row" *ngIf="!loading">
+        <ng-template #noBookings>
             <div class="col-sm-12">
-                <h3 class="text-center">You do not have any bookings yet.</h3>
+                <h1 class="text-center">You do not have any bookings yet.</h1>
             </div>
         </ng-template>
     </div>
-    <a [routerLink]="['/reservation/new/'+restaurantId]" [routerLinkActiveOptions]="{'exact': 'true'}"
-        routerLinkActive="active" class="ui button">Create new Reservation</a>
 </div>
