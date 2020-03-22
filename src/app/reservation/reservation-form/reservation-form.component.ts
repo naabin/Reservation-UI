@@ -5,6 +5,8 @@ import { ReservationService } from 'src/app/services/reservation-service/reserva
 import { MessageService } from 'src/app/services/message-service/message.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
 
 @Component({
   selector: 'app-reservation-form',
@@ -17,16 +19,14 @@ export class ReservationFormComponent implements OnInit {
     private reservationService: ReservationService, 
     private messageService: MessageService, 
     private router: Router,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private snackar: MatSnackBar) { }
 
   reservationForm: FormGroup;
   minimuDate = new Date();
   reservation: Reservation = new Reservation();
   loading = false;
   ngOnInit() {
-   this.activatedRoute.params.subscribe((d) => {
-     console.log(d);
-   })
     const {fullName, email, date, time, numberOfPeople, phoneNumber, specialRequest} = this.reservation;
     this.reservationForm = new FormGroup({
       fullName: new FormControl(fullName, [Validators.required]),
@@ -37,6 +37,8 @@ export class ReservationFormComponent implements OnInit {
       phoneNumber: new FormControl(phoneNumber, [Validators.required]),
       specialRequest: new FormControl(specialRequest)
     })
+   
+
   }
 
   onSubmit(){
@@ -45,20 +47,40 @@ export class ReservationFormComponent implements OnInit {
     }
     this.loading = true;
     this.activatedRoute.params.pipe(
-      switchMap(({id}) => {
-        return this.reservationService.createReservation(this.reservationForm.value, id)
+      switchMap(({id, name}) => {
+        if(name !== null && name !== undefined){
+          return this.reservationService.createPublicReservation(this.reservationForm.value, name)
+        }
+        else if(id !== null && id !== undefined){
+          console.log(typeof id)
+          return this.reservationService.createReservation(this.reservationForm.value, id);
+        }
+        
       })
     ).subscribe({
       next: (resId) => {
-        this.messageService.add('Reservation successfully created.');
-        this.router.navigateByUrl('/reservation/'+ resId.restaurantId);
-        this.loading = false;
+        if(resId !== null){
+          this.messageService.add('Reservation successfully created.');
+          this.router.navigateByUrl('/reservation/'+ resId.restaurantId);
+          this.loading = false;
+        }
+        else{
+          this.openSnackBar('Resrvation successful', 'true');
+          this.loading = false;
+          this.router.navigateByUrl('/');
+        }
       },
       error: (error) => {
         this.messageService.add(error.message);
         this.loading = false;
       }
     })
+  }
+
+  openSnackBar(message: string, action: string){
+    this.snackar.open(message, action, {
+      duration: 3000
+    });
   }
 
 }

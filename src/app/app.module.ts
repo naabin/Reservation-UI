@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { SharedModule } from './shared/shared.module';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { PublicModule } from './public/public.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    SharedModule
+    SharedModule,
+    PublicModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

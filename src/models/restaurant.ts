@@ -6,7 +6,21 @@ export class Restaurant {
     name: string;
     address: string;
     phoneNumber: string;
+    siteAddress: string;
+    email: string;
+    about: string;
     user: User;
     openingHours: [OpeningHours];
     reservation: [Reservation];
+}
+
+export class PublicRestaurant {
+    id: number;
+    name: string;
+    address: string;
+    phoneNumber: string;
+    email: string;
+    about: string;
+    siteAddress: string;
+    openingHours: [OpeningHours];
 }

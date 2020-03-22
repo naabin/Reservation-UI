@@ -10,6 +10,9 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { ModalComponent } from './modal/modal.component';
 import { TableComponent } from './table/table.component';
 import { TabsComponent } from './tabs/tabs.component';
+import { FeedComponent } from './feed/feed.component';
+import { PlaceholderComponent } from './placeholder/placeholder.component';
+import { MatDialogModule } from '@angular/material';
 
 
 @NgModule({
@@ -19,13 +22,16 @@ import { TabsComponent } from './tabs/tabs.component';
     InputComponent,
     ModalComponent,
     TableComponent,
-    TabsComponent
+    TabsComponent,
+    FeedComponent,
+    PlaceholderComponent
   ],
   imports: [
     MaterialModule,
     ReactiveFormsModule,
     CommonModule,
     SharedRoutingModule,
+    MatDialogModule
   ],
   exports: [
     NavigationComponent,
@@ -33,7 +39,9 @@ import { TabsComponent } from './tabs/tabs.component';
     InputComponent,
     ModalComponent,
     TableComponent,
-    TabsComponent
+    TabsComponent,
+    FeedComponent,
+    PlaceholderComponent
   ]
 })
 export class SharedModule { }

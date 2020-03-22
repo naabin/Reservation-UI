@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { RestaurantService } from 'src/app/services/restaurant-service/restaurant.service';
 import { Restaurant } from 'src/models/restaurant';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
 @Component({
@@ -12,20 +12,19 @@ import { switchMap } from 'rxjs/operators';
 })
 export class RestaurantProfileComponent implements OnInit {
 
+  
   restaurant: Restaurant
   error: string;
   restaurantForm: FormGroup;
   openingHours: FormArray;
   loading = true;
+  submitLoading = false;
 
-  constructor(private restaurantService: RestaurantService, private route: ActivatedRoute) {
-      this.restaurantForm = new FormGroup({
-        name: new FormControl(''),
-        address: new FormControl(''),
-        phoneNumber: new FormControl(''),
-        openingHours: new FormArray([])
-      })
-      this.openingHours = this.restaurantForm.get('openingHours') as FormArray;
+  constructor(
+    private restaurantService: RestaurantService, 
+    private router: Router,
+    private route: ActivatedRoute) {
+      
    }
   
 
@@ -44,6 +43,16 @@ export class RestaurantProfileComponent implements OnInit {
         this.loading = false;
       }
     })
+    this.restaurantForm = new FormGroup({
+      name: new FormControl(this.restaurant && this.restaurant.name),
+      address: new FormControl(this.restaurant && this.restaurant.address),
+      phoneNumber: new FormControl(this.restaurant && this.restaurant.phoneNumber),
+      email: new FormControl(this.restaurant && this.restaurant.email),
+      siteAddress: new FormControl(this.restaurant && this.restaurant.siteAddress),
+      about: new FormControl(''),
+      openingHours: new FormArray([])
+    })
+    this.openingHours = this.restaurantForm.get('openingHours') as FormArray;
   }
 
   openHours(){
@@ -53,6 +62,21 @@ export class RestaurantProfileComponent implements OnInit {
       'openUntil': new FormControl('')
     })
     this.openingHours.push(openHourFormGroup);
+  }
+
+  onSubmit(){
+    this.submitLoading = true;
+    this.restaurantService.updateRestaurant(this.restaurant.id,this.restaurantForm.value).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.submitLoading = false;
+        this.router.navigateByUrl('/restaurant/' + this.restaurant.id);
+      },
+      error: (err)=> {
+        console.log(err);
+        this.submitLoading = false;
+      }
+    })
   }
 
 }

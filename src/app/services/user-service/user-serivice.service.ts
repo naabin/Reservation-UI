@@ -117,6 +117,17 @@ export class UserSerivice {
     return this.http.post<{available: boolean}>(`${this.remoteUrl}api/user/checkavailableemail`, {}, {params: {email: email}})
   }
 
+  checkValidJWT(){
+    return this.http.post<any>(`${this.remoteUrl}validtoken`, {})
+      .pipe(
+        tap( 
+          () => console.log("User is valid."),
+          (err) => {
+            console.log(err);
+          })
+      );
+  }
+
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');

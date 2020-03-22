@@ -6,6 +6,9 @@
                 </app-input>
                 <app-input [label]="'Phone Number'" [inputType]="'tel'" [control]="restaurantForm.get('phoneNumber')">
                 </app-input>
+                <app-input [label]="'Restaurant Email'" [inputType]="'email'" [control]="restaurantForm.get('email')"></app-input>
+                <app-input [label]="'Website URL'" [inputType]="'text'" [control]="restaurantForm.get('siteAddress')"></app-input>
+                <app-input [label]="'About(Give a little overview)'" [controlType]="'textarea'" [control]="restaurantForm.get('about')"></app-input>
                 <ng-container formArrayName="openingHours">
                         <div *ngFor="let opHour of openingHours.controls; index as i">
                                 <ng-container [formGroupName]="i">
@@ -27,3 +30,4 @@
                 </div>
         </form>
 </div>
+{{restaurantForm.value | json}}

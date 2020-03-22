@@ -24,7 +24,9 @@ export class RestaurantHomeComponent implements OnInit {
           this.restaurant = restaurant;
         },
         error: (err) => {
-          console.error(err);
+          if(err){
+            console.log(err.error.text);
+          }
         }
       })
     }

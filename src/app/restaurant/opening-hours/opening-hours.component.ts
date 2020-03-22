@@ -13,8 +13,8 @@ export class OpeningHoursComponent implements OnInit {
   @Input() days: [];
   @Input() givenOpeningHours: OpeningHours;
 
-  givenOpenFrom: Date = new Date();
-  givenOpenUntil: Date = new Date();
+  givenOpenFrom: Date = new Date(Date.now());
+  givenOpenUntil: Date = new Date(Date.now());
 
   constructor() {
    }
@@ -22,7 +22,6 @@ export class OpeningHoursComponent implements OnInit {
   ngOnInit() {
     this.givenOpenFrom = new Date(this.givenOpeningHours && this.givenOpeningHours.openFrom);
     this.givenOpenUntil = new Date(this.givenOpeningHours && this.givenOpeningHours.openUntil);
-    console.log(this.givenOpenFrom)
   }
 
 }
