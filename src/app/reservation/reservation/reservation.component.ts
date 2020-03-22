@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import {Reservation} from '../../../models/reservation';
 import { ReservationService } from 'src/app/services/reservation-service/reservation.service';
-import { MessageService } from 'src/app/services/message-service/message.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { NavServiceService } from 'src/app/services/nav-service/nav-service.service';
+
 
 
 @Component({
@@ -19,7 +20,9 @@ export class ReservationComponent implements OnInit {
   restaurantId: string;
   loading = true;
   
-  constructor(private reservationService: ReservationService, private messageService: MessageService, private route: ActivatedRoute) { 
+  constructor(
+    private reservationService: ReservationService, 
+    private route: ActivatedRoute) { 
   }
   ngOnInit() {
     this.restaurantId = this.route.snapshot.params.id;
@@ -38,5 +41,4 @@ export class ReservationComponent implements OnInit {
       }
     })
   }
-
 }

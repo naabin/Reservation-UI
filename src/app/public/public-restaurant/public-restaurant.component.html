@@ -1,0 +1,32 @@
+<div class="ui inverted vertical masthead center aligned segment">
+    <div class="ui text container">
+        <h1 class="ui inverted header">
+            Restaurant Reservation
+        </h1>
+        <h2>Do you own a restaurant or any food service outlet</h2>
+        <a [routerLink]="['/user/login']" routerLinkActive="active" class="ui huge primary button">Get Started <i
+                class="right arrow icon"></i></a>
+    </div>
+</div>
+<div class="segment p-4">
+    <app-placeholder *ngIf="loading"></app-placeholder>
+    <div *ngFor="let restaurant of restaurants|async">
+        <app-feed class="m-2" [title]="restaurant.name">
+            <div>
+                {{restaurant.about}}
+            </div>
+            <div extra>
+                <div class="ui label">
+                <a href="mailto:{{restaurant.email}}" target="_blank"><i class="envelope open icon"></i>{{restaurant.email}}</a>
+                </div>
+                <div class="ui label">
+                    <a href="tel:{{restaurant.phoneNumber}}}"><i class="phone square icon"></i>{{restaurant.phoneNumber}}</a>
+                </div>
+                <div class="ui label">
+                <a href="{{restaurant.siteAddress}}" target="_blank"><i class="globe icon"></i>{{restaurant.siteAddress}}</a>
+                </div>
+                <a [routerLink]="[restaurant.name + '/make-reservation/']" routerLinkActive="router-link-active"  class="ui right floated button">Make reservation at {{restaurant.name}}</a>
+            </div>
+        </app-feed>
+    </div>
+</div>

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Restaurant } from 'src/models/restaurant';
 import { FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { RestaurantService } from 'src/app/services/restaurant-service/restaurant.service';
 import { Router } from '@angular/router';
-import { AlertService } from 'src/app/services/alert-service/alert.service';
-import { UserSerivice } from 'src/app/services/user-service/user-serivice.service';
+
 
 
 @Component({
@@ -20,14 +18,15 @@ export class RestaurantComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     address: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
+    email: new FormControl('', Validators.required),
+    about: new FormControl(''),
+    siteAddress: new FormControl(''),
     openingHours: new FormArray([])
   })
   openingHours = this.restaurantForm.get('openingHours') as FormArray;
   constructor(
     private restaurantService: RestaurantService,
     private router: Router,
-    private userService: UserSerivice,
-    private alertService: AlertService
   ) { 
   }
   addOpeningHours(){
@@ -48,12 +47,12 @@ export class RestaurantComponent implements OnInit {
     this.restaurantService.createRestaurant(this.restaurantForm.value)
     .subscribe({
       next: () => {
-        this.alertService.success('Created restaurant successfully');
         this.router.navigateByUrl('/reservation');
       },
       error: () => {
         this.restaurantForm.setErrors({unknown: true});
         this.loading = false;
+        this.restaurantForm.reset();
       }
     })
   }

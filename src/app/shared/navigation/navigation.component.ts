@@ -3,6 +3,7 @@ import { UserSerivice } from 'src/app/services/user-service/user-serivice.servic
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/models/user';
+import { NavServiceService } from 'src/app/services/nav-service/nav-service.service';
 
 @Component({
   selector: 'app-navigation',
@@ -11,11 +12,16 @@ import { User } from 'src/models/user';
 })
 export class NavigationComponent implements OnInit{
   
-  constructor(private userService: UserSerivice, private route: Router) {
+  constructor(
+    private userService: UserSerivice, 
+    private navService: NavServiceService,
+    private route: Router) {
 
     this.isActive$ = this.userService.currentUserValue;
     this.restaurantId$ = this.userService.currentRestaurantValue;
+    this.visible = this.navService.visible;
    }
+  visible: BehaviorSubject<Boolean>;
   isActive$: BehaviorSubject<User>;
   restaurantId$: BehaviorSubject<string>;
   

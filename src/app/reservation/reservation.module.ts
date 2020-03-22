@@ -8,12 +8,14 @@ import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { ReservationFormComponent } from './reservation-form/reservation-form.component';
 import {IgxTimePickerModule} from 'igniteui-angular';
+import { MatSnackBarModule, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
+import { ModalComponent } from '../shared/modal/modal.component';
 
 
 @NgModule({
   declarations: [
     ReservationComponent,
-    ReservationFormComponent
+    ReservationFormComponent,
   ],
   imports: [
     CommonModule,
@@ -22,8 +24,12 @@ import {IgxTimePickerModule} from 'igniteui-angular';
     ReactiveFormsModule,
     MaterialModule,
     SharedModule,
-    IgxTimePickerModule
-
+    IgxTimePickerModule,
+    MatSnackBarModule,
+    MatDialogModule
+  ],
+  exports: [
+    ReservationFormComponent
   ]
 })
 export class ReservationModule { }

@@ -16,8 +16,7 @@ export class ReservationService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+      'Content-Type': 'application/json'
     })
   }
 
@@ -28,6 +27,17 @@ export class ReservationService {
       .pipe(
         (tap(() => this.messageService.add(`Successfully created reservation.`)))
       );
+  }
+
+  createPublicReservation(reservation: Reservation, restaurantName: string){
+    return this.http.post<any>(`${this.remoteUrl}api/public/reservation/new`, JSON.stringify(reservation), {
+      headers: this.httpOptions.headers,
+      params: {
+        restaurant: restaurantName
+      }
+    })
+    .pipe(
+      (tap(() => this.messageService.add(`Successfully created reservation.`))));
   }
 
   getReservations(restaurantId: string): Observable<any>{

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { PublicRestaurantComponent } from './public/public-restaurant/public-restaurant.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: 'restaurant',
     loadChildren: () => import('./restaurant/restaurant.module').then(m => m.RestaurantModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./public/public.module').then(m => m.PublicModule)
   },
   //otherwise redirect to loginpage
   {path: '**', redirectTo: ''}
