@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserSerivice } from 'src/app/services/user-service/user-serivice.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { AlertService } from 'src/app/services/alert-service/alert.service';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +17,7 @@ export class LoginComponent implements OnInit {
     private userService: UserSerivice,
     private router: Router,
     private route: ActivatedRoute,
-    private alertService: AlertService
+
   ) {
     if (this.userService.currentUserValue) {
       this.router.navigate['/'];
@@ -38,7 +36,6 @@ export class LoginComponent implements OnInit {
     this.userService.authenticateUser(this.loginForm.get('username').value, this.loginForm.get('password').value)
       .subscribe({
         next: (res) => {
-          this.alertService.success('Login success');
           this.router.navigateByUrl('/restaurant')
         },
         error: (error) => {

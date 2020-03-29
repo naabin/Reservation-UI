@@ -21,7 +21,8 @@ export class PublicRestaurantComponent implements OnInit {
     .subscribe(
       {
         next: (restaurants) => {
-          this.restaurants.next(restaurants);
+          console.log(restaurants);
+          this.restaurants.next(restaurants.content);
         },
         error: (err) => {
           console.log(err);

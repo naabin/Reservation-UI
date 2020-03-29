@@ -13,9 +13,8 @@ export class OpeningHoursComponent implements OnInit {
   @Input() days: [];
   @Input() givenOpeningHours: OpeningHours;
 
-  givenOpenFrom: Date = new Date(Date.now());
-  givenOpenUntil: Date = new Date(Date.now());
-
+  givenOpenFrom: Date
+  givenOpenUntil: Date;
   constructor() {
    }
 
