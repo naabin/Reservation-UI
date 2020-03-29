@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import {Reservation} from '../../../models/reservation';
-import { ReservationService } from 'src/app/services/reservation-service/reservation.service';
+import { ReservationService, Bookings, ReservationResponse } from 'src/app/services/reservation-service/reservation.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { NavServiceService } from 'src/app/services/nav-service/nav-service.service';
@@ -16,7 +16,7 @@ import { NavServiceService } from 'src/app/services/nav-service/nav-service.serv
 export class ReservationComponent implements OnInit {
 
   minDate = new Date();
-  reservationList: Reservation[] = [];
+  reservations: ReservationResponse;
   restaurantId: string;
   loading = true;
   
@@ -32,7 +32,7 @@ export class ReservationComponent implements OnInit {
       })
     ).subscribe({
       next: (response) => {
-        this.reservationList = response;
+        this.reservations = response;
         this.loading = false;
       },
       error: (err) => {

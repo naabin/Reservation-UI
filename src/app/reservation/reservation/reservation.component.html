@@ -1,24 +1,5 @@
-<div *ngIf="reservationList.length > 0; else noBookings" class="ui container">
-    <app-table>
-        <ng-container tableHead>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Number of People</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Special Request</th>
-        </ng-container>
-        <tr *ngFor="let reservation of reservationList">
-            <td>{{reservation.fullName}}</td>
-            <td>{{reservation.email}}</td>
-            <td>{{reservation.phoneNumber}}</td>
-            <td>{{reservation.numberOfPeople}}</td>
-            <td>{{reservation.date | date}}</td>
-            <td>{{reservation.time | date: 'HH:mm a'}}</td>
-            <td>{{reservation.specialRequest}}</td>
-        </tr>
-    </app-table>
+<div *ngIf="reservations && reservations.content.length > 0; else noBookings" class="">
+    <app-table [data]="reservations"></app-table>
     <a [routerLink]="['/reservation/new/'+restaurantId]" [routerLinkActiveOptions]="{'exact': 'true'}"
         routerLinkActive="active" class="ui button">Create new Reservation</a>
 </div>
@@ -29,7 +10,7 @@
                 <h1 class="text-center">You do not have any bookings yet.</h1>
             </div>
             <a [routerLink]="['/reservation/new/'+restaurantId]" [routerLinkActiveOptions]="{'exact': 'true'}"
-            routerLinkActive="active" class="ui button">Create new Reservation</a>
+                routerLinkActive="active" class="ui button">Create new Reservation</a>
         </ng-template>
     </div>
 </div>

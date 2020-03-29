@@ -3,7 +3,6 @@ import { UserSerivice } from 'src/app/services/user-service/user-serivice.servic
 import { User } from 'src/models/user';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router} from '@angular/router';
-import { AlertService } from 'src/app/services/alert-service/alert.service';
 import { first } from 'rxjs/operators';
 import { UniqueUsernameValidator } from '../unique-username';
 import { UniquEmailValidator } from '../unique-email';
@@ -35,7 +34,6 @@ export class UserUiComponent implements OnInit {
   constructor(
     private userService: UserSerivice,
     private router: Router,
-    private alertService: AlertService,
     private uniquUsernameCheck: UniqueUsernameValidator,
     private uniqueEmailCheck: UniquEmailValidator,
     private matchPassword: MatchPasswordVaildator
@@ -57,7 +55,6 @@ export class UserUiComponent implements OnInit {
      
      this.userService.registerUser(this.user).subscribe({
        next: (val) => {
-         this.alertService.success(val);
           this.router.navigateByUrl('/user/login');
           this.loading = false;
        },

@@ -1,0 +1,8 @@
+<div class="container">
+    <div [ngClass]="message.type === 'error' ? 'error' : 'success'" *ngFor="let message of notifications$ | async" class="ui message">
+        <i class="close icon" (click)="clearMessge(message.id)"></i>
+        <div class="header text-center">
+          <p>{{message.text}}</p>
+        </div>
+      </div>
+</div>

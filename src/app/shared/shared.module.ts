@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { SharedRoutingModule } from './shared-routing.module';
 import { MaterialModule } from '../material/material.module';
-import { AlertComponent } from './alert/alert.component';
 import { InputComponent } from './input/input.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -12,36 +11,39 @@ import { TableComponent } from './table/table.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { FeedComponent } from './feed/feed.component';
 import { PlaceholderComponent } from './placeholder/placeholder.component';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule, MatTableModule, MatPaginatorModule } from '@angular/material';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 
 @NgModule({
   declarations: [
     NavigationComponent,
-    AlertComponent,
     InputComponent,
     ModalComponent,
     TableComponent,
     TabsComponent,
     FeedComponent,
-    PlaceholderComponent
+    PlaceholderComponent,
+    NotificationsComponent
   ],
   imports: [
     MaterialModule,
     ReactiveFormsModule,
     CommonModule,
     SharedRoutingModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   exports: [
     NavigationComponent,
-    AlertComponent,
     InputComponent,
     ModalComponent,
     TableComponent,
     TabsComponent,
     FeedComponent,
-    PlaceholderComponent
+    PlaceholderComponent,
+    NotificationsComponent
   ]
 })
 export class SharedModule { }

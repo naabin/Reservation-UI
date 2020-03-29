@@ -16,12 +16,10 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <button *ngIf="openingHours.length < 7" (click)="openHours()" class="ui success button">Opening Hours</button>
+                    <button type="button" *ngIf="openingHours.length < 7" (click)="openHours()" class="ui success button">Opening Hours</button>
                     <ng-container *ngIf="restaurant && restaurant.openingHours" formArrayName="openingHours">
                         <div *ngFor="let opHour of openingHours.controls; index as i">
                             <ng-container [formGroupName]="i">
-                                <!-- <app-opening-hours [givenOpeningHours]="restaurant.openingHours[i]" [control]="openingHours.controls[i]">
-                                </app-opening-hours> -->
                                 <mat-form-field appearance="outline">
                                     <mat-label>Day</mat-label>
                                     <input matInput [value]="restaurant.openingHours[i].dayOfWeek" [formControl]="openingHours.controls[i].get('dayOfWeek')">

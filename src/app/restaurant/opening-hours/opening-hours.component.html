@@ -23,7 +23,7 @@
         <div class="field">
             <span>Until</span>
             <igx-time-picker [value]="givenOpenUntil"  [itemsDelta]="{hours: 1, minutes: 10}" [isSpinLoop]="false"
-                mode="dropdown" [formControl]="control.get('openUntil')">
+                [formControl]="control.get('openUntil')">
             </igx-time-picker>
         </div>
     </div>

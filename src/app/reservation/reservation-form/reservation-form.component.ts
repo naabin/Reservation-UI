@@ -2,7 +2,6 @@ import { Component, OnInit} from '@angular/core';
 import { Reservation } from 'src/models/reservation';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ReservationService } from 'src/app/services/reservation-service/reservation.service';
-import { MessageService } from 'src/app/services/message-service/message.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { MatSnackBar, MatDialog } from '@angular/material';
@@ -17,7 +16,6 @@ export class ReservationFormComponent implements OnInit {
 
   constructor(
     private reservationService: ReservationService, 
-    private messageService: MessageService, 
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private snackar: MatSnackBar) { }
@@ -60,7 +58,7 @@ export class ReservationFormComponent implements OnInit {
     ).subscribe({
       next: (resId) => {
         if(resId !== null){
-          this.messageService.add('Reservation successfully created.');
+          
           this.router.navigateByUrl('/reservation/'+ resId.restaurantId);
           this.loading = false;
         }
@@ -71,7 +69,6 @@ export class ReservationFormComponent implements OnInit {
         }
       },
       error: (error) => {
-        this.messageService.add(error.message);
         this.loading = false;
       }
     })
