@@ -2,23 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 
 import {url} from '../../../util/remoteUrl';
-import { Reservation } from 'src/models/reservation';
+import { Reservation, BookingsResponse } from 'src/models/reservation';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { PageableResponse } from 'src/models/pageable';
 
  export interface ReservationResponse {
-  content: Bookings[];
-  pageable: {
-    sort:{
-      sorted: boolean;
-      unsorted: boolean;
-      empty: boolean;
-    },
-    offset: number;
-    pageNumber: number;
-    pageSize: number;
-    paged: boolean;
-  };
+  content: BookingsResponse[];
+  pageable: PageableResponse;
   totalPages: number;
   totalElements: number;
   last: boolean;
@@ -27,20 +18,6 @@ import { HttpClient } from '@angular/common/http';
   numberOfElements: number;
   first: boolean;
   empty: boolean;
-}
-
-export interface Bookings {
-  createdBy: string;
-  createdDate: string;
-  lastModifiedDate: Date;
-  lastModifiedBy: string;
-  id: number;
-  fullName: string;
-  email: string;
-  numberOfPeople: number;
-  date: Date;
-  time: Date;
-  specialRequest: string;
 }
 
 @Injectable({
@@ -86,7 +63,8 @@ export class ReservationService {
 
   getReservationById(id: number): Observable<Reservation> {
     const url = `${this.remoteUrl}api/reservation/${id}`;
-    return this.http.get<Reservation>(url, this.httpOptions)
+    const restaurantId = localStorage.getItem('restaurantId');
+    return this.http.get<Reservation>(url, {params: {restaurantId: String(restaurantId)}})
   }
 
   updateReservation(id: number): Observable<Reservation> {

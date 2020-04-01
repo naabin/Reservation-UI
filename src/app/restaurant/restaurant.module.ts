@@ -7,7 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { IgxTimePickerModule } from 'igniteui-angular';
-import { MatSelectModule } from '@angular/material';
+import { MatSelectModule, MatTabsModule } from '@angular/material';
 import { OpeningHoursComponent } from './opening-hours/opening-hours.component';
 import { RestaurantHomeComponent } from './restaurant-home/restaurant-home.component';
 import { RestaurantProfileComponent } from './restaurant-profile/restaurant-profile.component';
@@ -29,7 +29,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     MaterialModule,
     SharedModule,
     IgxTimePickerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTabsModule
   ]
 })
 export class RestaurantModule { }

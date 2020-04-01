@@ -15,3 +15,13 @@
     width: auto;
 
 }
+
+.ui.modal {
+    min-width: 500px;
+}
+
+@media only screen and (max-width: 767px){
+    .ui.modal {
+        min-width: 100%;
+    }
+}

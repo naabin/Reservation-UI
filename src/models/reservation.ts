@@ -9,4 +9,20 @@ export class Reservation {
     date: Date;
     time: DateTime;
     specialRequest: string;
+    confirmed: boolean;
 }
+
+export interface BookingsResponse {
+    createdBy: string;
+    createdDate: string;
+    lastModifiedDate: Date;
+    lastModifiedBy: string;
+    id: number;
+    fullName: string;
+    email: string;
+    numberOfPeople: number;
+    date: Date;
+    time: Date;
+    specialRequest: string;
+    confirmed: boolean;
+  }

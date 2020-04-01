@@ -11,7 +11,7 @@ import { TableComponent } from './table/table.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { FeedComponent } from './feed/feed.component';
 import { PlaceholderComponent } from './placeholder/placeholder.component';
-import { MatDialogModule, MatTableModule, MatPaginatorModule } from '@angular/material';
+import { MatDialogModule, MatTableModule, MatPaginatorModule, MatTabsModule, MatCheckboxModule, MatSortModule } from '@angular/material';
 import { NotificationsComponent } from './notifications/notifications.component';
 
 
@@ -33,7 +33,10 @@ import { NotificationsComponent } from './notifications/notifications.component'
     SharedRoutingModule,
     MatDialogModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTabsModule,
+    MatCheckboxModule,
+    MatSortModule
   ],
   exports: [
     NavigationComponent,

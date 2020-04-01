@@ -1,12 +1,6 @@
 <div class="ui grid">
-    <div class="four wide column">
-        <div class="ui vertical fluid tabular menu">
-            <ng-content></ng-content>
-        </div>
-    </div>
-    <div class="twelve wide stretched column">
-        <div [ngClass]="isLoading ? 'ui loading attached loading tab segment' : 'ui segment'">
-            <router-outlet></router-outlet>
-        </div>
-    </div>
+    <nav class="ui two item menu">
+        <ng-content></ng-content>
+    </nav>
+    <router-outlet></router-outlet>
 </div>

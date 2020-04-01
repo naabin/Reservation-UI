@@ -130,7 +130,8 @@
   "defaultProject": "reservation-UI",
   "schematics": {
     "@schematics/angular:component": {
-      "style": "scss"
+      "style": "scss",
+      "styleext": "css"
     }
   },
   "cli": {

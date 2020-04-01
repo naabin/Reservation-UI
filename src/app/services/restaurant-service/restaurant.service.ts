@@ -3,10 +3,26 @@ import { HttpHeaders } from '@angular/common/http';
 import {url} from '../../../util/remoteUrl';
 import {HttpClient} from '@angular/common/http';
 import { Restaurant, PublicRestaurant } from 'src/models/restaurant';
-import { Observable, throwError } from 'rxjs';
-import { catchError ,tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { UserSerivice } from '../user-service/user-serivice.service';
 import { NotificationService } from '../notifcation-service/notification.service';
+import { PageableResponse } from 'src/models/pageable';
+
+
+export interface PublicRestaurantResponse {
+  content: PublicRestaurant[];
+  pageable: PageableResponse;
+  totalPages: number;
+  totalElements: number;
+  last: boolean;
+  size: number;
+  number: number;
+  numberOfElements: number;
+  first: boolean;
+  empty: boolean;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +43,7 @@ export class RestaurantService {
     private notificationService: NotificationService) { }
 
   createRestaurant(restuarant: Restaurant): Observable<Restaurant>{
-    return this.http.post<Restaurant>(`${this.remoteUrl}api/restaurant/new`, restuarant, {params: {
+    return this.http.post<Restaurant>(`${this.remoteUrl}api/restaurant`, restuarant, {params: {
       userId: JSON.parse(localStorage.getItem('userId'))
     }})
       .pipe(
@@ -42,8 +58,8 @@ export class RestaurantService {
     return this.http.get<Restaurant[]>(`${this.remoteUrl}api/restaurant/all`, this.httpOptions)
   }
 
-  getPublicRestaurants(){
-    return this.http.get<any>(`${this.remoteUrl}api/public/restaurant`);
+  getPublicRestaurants(): Observable<PublicRestaurantResponse> {
+    return this.http.get<PublicRestaurantResponse>(`${this.remoteUrl}api/public/restaurant`);
   }
 
   getRestaurant(id:string): Observable<Restaurant> {

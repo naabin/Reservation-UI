@@ -11,23 +11,30 @@
 <div class="segment p-4">
     <app-placeholder *ngIf="loading"></app-placeholder>
     <div *ngFor="let restaurant of restaurants|async">
-        <app-feed class="m-2" [title]="restaurant.name">
+        <app-feed [image]="restaurant.image" class="m-2" [title]="restaurant.name">
             <div>
                 {{restaurant.about}}
             </div>
             <div extra>
                 <div class="ui label">
-                <a href="mailto:{{restaurant.email}}" target="_blank"><i class="envelope open icon"></i>{{restaurant.email}}</a>
+                    <a href="mailto:{{restaurant.email}}" target="_blank"><i
+                            class="envelope open icon"></i>{{restaurant.email}}</a>
                 </div>
                 <div class="ui label">
-                    <a href="tel:{{restaurant.phoneNumber}}}"><i class="phone square icon"></i>{{restaurant.phoneNumber}}</a>
+                    <a href="tel:{{restaurant.phoneNumber}}}"><i
+                            class="phone square icon"></i>{{restaurant.phoneNumber}}</a>
                 </div>
                 <div class="ui label">
-                <a href="{{restaurant.siteAddress}}" target="_blank"><i class="globe icon"></i>{{restaurant.siteAddress}}</a>
+                    <a href="{{restaurant.siteAddress}}" target="_blank"><i
+                            class="globe icon"></i>{{restaurant.siteAddress}}</a>
                 </div>
-                <a [routerLink]="[restaurant.name + '/make-reservation/']" routerLinkActive="router-link-active"  class="ui right floated button">Make reservation at {{restaurant.name}}</a>
+                <div class="ui label">
+                    <a [routerLink]="[restaurant.name + '/make-reservation/']" routerLinkActive="router-link-active"
+                        class="book icon">Make reservation at {{restaurant.name}}</a>
+                </div>
+
             </div>
+            <hr>
         </app-feed>
-        <hr>
     </div>
 </div>

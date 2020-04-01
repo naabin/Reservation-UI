@@ -1,7 +1,10 @@
 <div class="ui items">
     <div class="item">
-        <a class="ui small image">
+        <a *ngIf="image === null" class="ui small image">
             <img src="../../../assets/imageplaceholder.png">
+        </a>
+        <a *ngIf="image" class="ui small image">
+            <img [src]="image.imageUrl">
         </a>
         <div class="content">
             <a class="header">{{title}}</a>
