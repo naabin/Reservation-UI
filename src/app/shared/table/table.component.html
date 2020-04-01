@@ -2,37 +2,44 @@
     <mat-form-field appearance="outline">
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search by Name, Phone Number, email">
     </mat-form-field>
-    <table mat-table [class.isMobile]="'isMobile'"  [dataSource]="dataSource">
+    <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="confirmed">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Confirmed</mat-header-cell>
+            <mat-cell data-label="Confirmed" *matCellDef="let el">
+                <mat-checkbox *ngIf="el.confirmed" [checked]="el.confirmed"></mat-checkbox>
+                <a [routerLink]="'/reservation/confirm/' + el.id" class="red ui button">Confirm</a>
+            </mat-cell>
+        </ng-container>
         <ng-container matColumnDef="fullName">
-            <th mat-header-cell *matHeaderCellDef>Full Name</th>
-            <td mat-cell *matCellDef="let el">{{el.fullName}}</td>
+            <mat-header-cell mat-sort-header  *matHeaderCellDef>Full Name</mat-header-cell>
+            <mat-cell data-label="Full Name" *matCellDef="let el">{{el.fullName}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="email">
-            <th mat-header-cell *matHeaderCellDef>Email</th>
-            <td mat-cell *matCellDef="let el">{{el.email}}</td>
+            <mat-header-cell mat-sort-header  *matHeaderCellDef>Email</mat-header-cell>
+            <mat-cell data-label="Email" *matCellDef="let el">{{el.email}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="phoneNumber">
-            <th mat-header-cell *matHeaderCellDef>Phone Number</th>
-            <td mat-cell *matCellDef="let el">{{el.phoneNumber}}</td>
+            <mat-header-cell mat-sort-header  *matHeaderCellDef>Phone Number</mat-header-cell>
+            <mat-cell data-label="Phone Number" *matCellDef="let el">{{el.phoneNumber}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="numberOfPeople">
-            <th mat-header-cell *matHeaderCellDef>Number Of People</th>
-            <td mat-cell *matCellDef="let el">{{el.numberOfPeople}}</td>
+            <mat-header-cell mat-sort-header *matHeaderCellDef>Number Of People</mat-header-cell>
+            <mat-cell data-label="Number Of People" *matCellDef="let el">{{el.numberOfPeople}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef>Date</th>
-            <td mat-cell *matCellDef="let el">{{el.date | date}}</td>
+            <mat-header-cell mat-sort-header *matHeaderCellDef>Date</mat-header-cell>
+            <mat-cell data-label="Date" *matCellDef="let el">{{el.date | date}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="time">
-            <th mat-header-cell *matHeaderCellDef>Time</th>
-            <td mat-cell *matCellDef="let el">{{el.time | date: 'hh:mm a'}}</td>
+            <mat-header-cell mat-sort-header *matHeaderCellDef>Time</mat-header-cell>
+            <mat-cell data-label="Time" *matCellDef="let el">{{el.time | date: 'hh:mm a'}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="specialRequest">
-            <th mat-header-cell *matHeaderCellDef>Special Request</th>
-            <td mat-cell *matCellDef="let el">{{el.specialRequest}}</td>
+            <mat-header-cell mat-sort-header *matHeaderCellDef>Special Request</mat-header-cell>
+            <mat-cell data-label="Special Request" *matCellDef="let el">{{el.specialRequest}}</mat-cell>
         </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>

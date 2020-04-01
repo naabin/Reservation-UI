@@ -1,5 +1,10 @@
-<div [ngClass]="loading ? 'ui active loader' : ''">
-    <form  *ngIf="user" [formGroup]="userForm">
+<div>
+    <div *ngIf="loading">
+        <div class="ui active inverted dimmer">
+            <div class="ui large text loader">Loading</div>
+        </div>
+    </div>
+    <form *ngIf="user" [formGroup]="userForm">
         <div class="row">
             <div class="col-sm-12 col-md-6">
                 <app-input [label]="'First Name'" [control]="userForm.get('firstName')" [givenValue]="user.firstName">

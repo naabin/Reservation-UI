@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PublicRestaurant } from 'src/models/restaurant';
-import { RestaurantService } from 'src/app/services/restaurant-service/restaurant.service';
+import { RestaurantService, PublicRestaurantResponse } from 'src/app/services/restaurant-service/restaurant.service';
 import { BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material';
 

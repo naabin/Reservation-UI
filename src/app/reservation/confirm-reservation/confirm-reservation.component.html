@@ -1,0 +1,42 @@
+<div [ngSwitch]="step">
+    <div *ngSwitchCase="1">
+        <app-modal *ngIf="showModal">
+            <p modalTitle>Reservation Details</p>
+            <div *ngIf="reservation">
+                <div class="text-center">
+                    <p>FullName: <b>{{reservation.fullName}}</b></p>
+                    <p>Email: <b>{{reservation.email}}</b></p>
+                    <p>Phone: <b>{{reservation.phoneNumber}}</b></p>
+                    <p>Date: <b>{{reservation.date| date}}</b></p>
+                    <p>Time: <b>{{reservation.time | date: 'hh:mm a'}}</b></p>
+                    <p>Number of People: <b> {{reservation.numberOfPeople}}</b></p>
+                    <p>Special Request: <b>{{reservation.specialRequest}}</b></p>
+                </div>
+                <div modalFooter>
+                    <button (click)="nextStep()" class="fluid ui button">Confirm and Reply</button>
+                </div>
+            </div>
+        </app-modal>
+    </div>
+    <div *ngSwitchCase="2">
+        <app-modal *ngIf="showModal">
+            <p modalTitle>Replying to {{reservation.fullName}}</p>
+            <form [formGroup]="replyForm" (ngSubmit)="onSubmit()" *ngIf="reservation">
+                <mat-form-field>
+                    <textarea  [rows]="5"
+                        [value]="'Hi ' + reservation.fullName + ',\n' + 'Your reservation on '
+                    + (reservation.date | date: 'MMMM d') + ' for ' + reservation.numberOfPeople 
+                    + ' ' + (num(reservation.numberOfPeople) > 1 ? ' persons ' : ' person ') 
+                    + 'has been confirmed. We look forward to seeing you on ' + (reservation.date | date: 'EEEE') 
+                    + ' at ' + (reservation.time | date: 'hh:mm a')
+                    + '\nThank you\n(Your name/restaurant name)'"
+                        matInput formControlName="message"></textarea>
+                </mat-form-field>
+                <div class="text-center">
+                    <button  class="ui green button">Reply</button>
+                </div>
+            </form>
+        </app-modal>
+        
+    </div>
+</div>

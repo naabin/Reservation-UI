@@ -1,4 +1,9 @@
-<div [ngClass]="loading ? 'ui active loader' : ''" class="row">
+<div class="row">
+    <div *ngIf="loading">
+        <div class="ui active inverted dimmer">
+            <div class="ui large text loader">Loading</div>
+        </div>
+    </div>
     <div class="col-sm-12 col-md-12">
         <form (ngSubmit)="onSubmit()" *ngIf="restaurant" [formGroup]="restaurantForm">
             <div class="row">
@@ -9,36 +14,45 @@
                         [givenValue]="restaurant.address"></app-input>
                     <app-input [label]="'Contact Number'" [control]="restaurantForm.get('phoneNumber')"
                         [givenValue]="restaurant.phoneNumber"></app-input>
-                    <app-input [label]="'Email'" [givenValue]="restaurant.email" [control]="restaurantForm.get('email')"></app-input>
-                    <app-input [label]="'Website Address'" [givenValue]="restaurant.siteAddress" [control]="restaurantForm.get('siteAddress')"></app-input>
-                    <app-input [controlType]="'textarea'" [givenValue]="restaurant.about" [label]="' About ' + restaurant.name" [givenValue]="restaurant.about" [control]="restaurantForm.get('about')"></app-input>
+                    <app-input [label]="'Email'" [givenValue]="restaurant.email"
+                        [control]="restaurantForm.get('email')"></app-input>
+                    <app-input [label]="'Website Address'" [givenValue]="restaurant.siteAddress"
+                        [control]="restaurantForm.get('siteAddress')"></app-input>
+                    <app-input [controlType]="'textarea'" [givenValue]="restaurant.about"
+                        [label]="' About ' + restaurant.name" [givenValue]="restaurant.about"
+                        [control]="restaurantForm.get('about')"></app-input>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <button type="button" *ngIf="openingHours.length < 7" (click)="openHours()" class="ui success button">Opening Hours</button>
+                    <button type="button" *ngIf="openingHours.length < 7" (click)="openHours()"
+                        class="ui success button">Opening Hours</button>
                     <ng-container *ngIf="restaurant && restaurant.openingHours" formArrayName="openingHours">
                         <div *ngFor="let opHour of openingHours.controls; index as i">
                             <ng-container [formGroupName]="i">
                                 <mat-form-field appearance="outline">
                                     <mat-label>Day</mat-label>
-                                    <input matInput [value]="restaurant.openingHours[i].dayOfWeek" [formControl]="openingHours.controls[i].get('dayOfWeek')">
+                                    <input matInput [value]="restaurant.openingHours[i].dayOfWeek"
+                                        [formControl]="openingHours.controls[i].get('dayOfWeek')">
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label>Opens At</mat-label>
-                                    <input matInput [value]="restaurant.openingHours[i].openFrom |date : 'hh:mm a'" [formControl]="openingHours.controls[i].get('openFrom')" type="datetime">
+                                    <input matInput [value]="restaurant.openingHours[i].openFrom |date : 'hh:mm a'"
+                                        [formControl]="openingHours.controls[i].get('openFrom')" type="datetime">
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
-                                        <mat-label>Closes At</mat-label>
-                                        <input matInput [value]="restaurant.openingHours[i].openUntil |date : 'hh:mm a'" [formControl]="openingHours.controls[i].get('openUntil')" type="datetime">
-                                    </mat-form-field>
+                                    <mat-label>Closes At</mat-label>
+                                    <input matInput [value]="restaurant.openingHours[i].openUntil |date : 'hh:mm a'"
+                                        [formControl]="openingHours.controls[i].get('openUntil')" type="datetime">
+                                </mat-form-field>
                             </ng-container>
                         </div>
                     </ng-container>
                 </div>
             </div>
             <div class="text-center">
-                    <button [ngClass]="submitLoading ?'ui primary loading button': ''" type="submit" class="ui basic button">Update</button>
+                <button [ngClass]="submitLoading ?'ui primary loading button': ''" type="submit"
+                    class="ui basic button">Update</button>
             </div>
         </form>
     </div>

@@ -1,7 +1,9 @@
 <div *ngIf="reservations && reservations.content.length > 0; else noBookings" class="">
+    <div class="text-center">
+            <a [routerLink]="['/reservation/new/'+restaurantId]" [routerLinkActiveOptions]="{'exact': 'true'}"
+            routerLinkActive="active" class="fluid ui green button">Create new Reservation</a>
+    </div>
     <app-table [data]="reservations"></app-table>
-    <a [routerLink]="['/reservation/new/'+restaurantId]" [routerLinkActiveOptions]="{'exact': 'true'}"
-        routerLinkActive="active" class="ui button">Create new Reservation</a>
 </div>
 <div [ngClass]="loading ? 'ui active loader' : ''" class="ui container">
     <div class="row">

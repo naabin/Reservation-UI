@@ -10,12 +10,14 @@ import { ReservationFormComponent } from './reservation-form/reservation-form.co
 import {IgxTimePickerModule} from 'igniteui-angular';
 import { MatSnackBarModule, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { ModalComponent } from '../shared/modal/modal.component';
+import { ConfirmReservationComponent } from './confirm-reservation/confirm-reservation.component';
 
 
 @NgModule({
   declarations: [
     ReservationComponent,
     ReservationFormComponent,
+    ConfirmReservationComponent,
   ],
   imports: [
     CommonModule,

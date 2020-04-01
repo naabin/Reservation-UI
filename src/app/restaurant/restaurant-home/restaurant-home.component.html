@@ -1,12 +1,36 @@
-<div  *ngIf="restaurant" class="container">
-    <h2 class="text-center p-4">Welcome {{restaurant && restaurant.user &&restaurant.user.firstName}}</h2>
-    <div class="row">
-        <div class="col-sm-12">
-            <a [routerLink]="['/reservation/'+restaurant.id]" routerLinkActive="router-link-active"  class="fluid ui button m-1">Manage Bookings</a>
+<div *ngIf="loading">
+    <div class="ui active inverted dimmer">
+        <div class="ui large text loader">Loading</div>
+    </div>
+</div>
+<div *ngIf="restaurant" class="row">
+    <div class="col-sm-12 col-md-3">
+        <div class="ui card">
+            <img class="ui image" [src]="restaurant.image ? restaurant.image.imageUrl : ''" alt="">
+            <div class="content">
+                <div class="header">{{restaurant.name}}</div>
+                <div><i class="map marker alternate icon"></i> {{restaurant.address}}</div>
+                <div class="meta">Owned by {{restaurant.user.firstName}}</div>
+            </div>
+            <div *ngIf="restaurant.image" class="ui bottom attached button">
+                <i class="change icon"></i>
+                Change Picture
+            </div>
         </div>
     </div>
-    <app-tabs>
-        <a [routerLink]="'user/'+restaurant.user.id"  class="item"  routerLinkActive="active">Personal Information</a>
-        <a  class="item" [routerLink]="restaurant.id" routerLinkActive="active" >{{restaurant && restaurant.name}} Information</a>
-    </app-tabs>
+    <div class="col-sm-12 col-md-9">
+        <div class="row">
+            <div class="col-sm-12">
+                <a [routerLink]="['/reservation/'+restaurant.id]" routerLinkActive="router-link-active"
+                    class="fluid ui button m-1">Manage Bookings</a>
+            </div>
+        </div>
+        <nav mat-tab-nav-bar class="ui two item menu">
+            <a class="item" [routerLink]="'user/'+restaurant.user.id" routerLinkActive="active">Personal
+                Information</a>
+            <a class="item" [routerLink]="restaurant.id" routerLinkActive="active">
+                {{restaurant && restaurant.name}} Information</a>
+        </nav>
+        <router-outlet></router-outlet>
+    </div>
 </div>

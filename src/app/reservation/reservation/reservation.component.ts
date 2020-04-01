@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import {Reservation} from '../../../models/reservation';
-import { ReservationService, Bookings, ReservationResponse } from 'src/app/services/reservation-service/reservation.service';
+import { ReservationService, ReservationResponse } from 'src/app/services/reservation-service/reservation.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { NavServiceService } from 'src/app/services/nav-service/nav-service.service';
+
 
 
 

@@ -1,6 +1,7 @@
 import {OpeningHours} from './openingHours';
 import { Reservation } from './reservation';
 import { User } from './user';
+import {ImageResponse} from './image';
 export class Restaurant {
     id: number;
     name: string;
@@ -12,6 +13,7 @@ export class Restaurant {
     user: User;
     openingHours: [OpeningHours];
     reservation: [Reservation];
+    image: ImageResponse;
 }
 
 export class PublicRestaurant {
@@ -23,4 +25,5 @@ export class PublicRestaurant {
     about: string;
     siteAddress: string;
     openingHours: [OpeningHours];
+    image: ImageResponse;
 }

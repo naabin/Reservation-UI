@@ -13,6 +13,7 @@ export class RestaurantHomeComponent implements OnInit {
   constructor(private restaurantService: RestaurantService, private router: Router) { }
 
   restaurant: Restaurant;
+  loading = true;
   ngOnInit() {
     const restaurantId = JSON.parse(localStorage.getItem('restaurantId'));
     if(restaurantId === null){
@@ -22,15 +23,15 @@ export class RestaurantHomeComponent implements OnInit {
       this.restaurantService.getRestaurant(restaurantId).subscribe({
         next: (restaurant) => {
           this.restaurant = restaurant;
+          this.loading = false;
         },
         error: (err) => {
           if(err){
             console.log(err.error.text);
+            this.loading = false;
           }
         }
       })
     }
   }
-
-
 }
