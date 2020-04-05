@@ -62,6 +62,10 @@ export class RestaurantService {
     return this.http.get<PublicRestaurantResponse>(`${this.remoteUrl}api/public/restaurant`);
   }
 
+  getPublicRestaurantByName(name: string): Observable<PublicRestaurant> {
+    return this.http.get<PublicRestaurant>(`${this.remoteUrl}api/public/restaurant/${name}`);
+  }
+
   getRestaurant(id:string): Observable<Restaurant> {
     const url = `${this.remoteUrl}api/restaurant/${id}`;
     return this.http.get<Restaurant>(url, {params: {userId: JSON.parse(localStorage.getItem('userId'))}})

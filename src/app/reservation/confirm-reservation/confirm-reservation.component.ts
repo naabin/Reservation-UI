@@ -46,10 +46,10 @@ export class ConfirmReservationComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log('Value ' + this.replyForm.get('message').value);
-    this.showModal=false;
+    this.reservationService.sendConfirmationMessage(this.replyForm.value, this.reservation.id).
+    subscribe((obsever) => console.log(obsever), err => console.error);
     const restaurantId = localStorage.getItem('restaurantId');
-    this.router.navigateByUrl('/reservation/' + restaurantId);
+    this.router.navigateByUrl(`/reservation/${restaurantId}`);
   }
   nextStep(){
     this.step++;

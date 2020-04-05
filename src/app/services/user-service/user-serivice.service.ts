@@ -3,7 +3,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import {url} from '../../../util/remoteUrl';
 import { User } from 'src/models/user';
 import { Observable, BehaviorSubject} from 'rxjs';
-import {catchError, map, tap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 import { NotificationService } from '../notifcation-service/notification.service';
 
 
@@ -16,7 +16,6 @@ export class UserSerivice {
   public currentUser: Observable<User>;
   private currentRestaurantSubject: BehaviorSubject<string>;
   public currentRestaurant: Observable<string>;
-  
   private remoteUrl = url;
 
   private httpOptions = {
@@ -95,11 +94,11 @@ export class UserSerivice {
   }
 
   checkValidJWT(){
-    return this.http.post<any>(`${this.remoteUrl}api/auth/validtoken`, {})
+    return this.http.post<{tokenExpired: boolean}>(`${this.remoteUrl}api/auth/validtoken`, {})
       .pipe(
         tap( 
-          () => console.log("User is valid."),
-          (err) => {
+          (res) => {},
+          () => {
             this.notificationService.addError('User session timed out.');
           })
       );

@@ -48,6 +48,11 @@ export class ReservationService {
     })
   }
 
+  sendConfirmationMessage(message:string, reservationId: number){
+    return this.http.post<any>(`${this.remoteUrl}api/reservation/sendconfirmation`, 
+    JSON.stringify(message), {params: {reservationId: String(reservationId)}})
+  }
+
   getReservations(restaurantId: string, pageSize?:number, pageNumber?:number): Observable<ReservationResponse>{
     const userId = JSON.parse(localStorage.getItem('userId'));
     return this.http.get<ReservationResponse>(`${this.remoteUrl}api/reservation`, {
