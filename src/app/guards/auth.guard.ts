@@ -5,27 +5,31 @@ import { UserSerivice } from '../services/user-service/user-serivice.service';
 
 @Injectable({'providedIn': 'root'})
 export class AuthGuard implements CanActivate {
-    
 
     constructor(private router: Router, private authService: UserSerivice){}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
         const currentUser = this.authService.currentUserValue;
-        this.authService.checkValidJWT().subscribe({
-            next: () => {},
+         this.authService.checkValidJWT().subscribe({
+            next: (res) => {
+                if(res.tokenExpired){
+                    localStorage.clear();
+                    currentUser.next(null);
+                    return false;
+                }
+            },
             error: (err) => {
                 if(err){
                     localStorage.clear();
                     currentUser.next(null);
-                    this.router.navigateByUrl('/user/login');
+                    this.router.navigateByUrl('/');
                 }
             }
         })
-        if(currentUser){
+        if(currentUser.value !== null){
             return true;
         }
-        //not logged in so redirect with login page with return url
-        this.router.navigateByUrl('/user/login'), {queryParams: {returnUrl: state.url}};
+        this.router.navigate(['user/login'], {queryParams: {returnUrl: state.url.toString()}});
         return false;
     }
 }

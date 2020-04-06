@@ -6,8 +6,8 @@
         <ng-container matColumnDef="confirmed">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Confirmed</mat-header-cell>
             <mat-cell data-label="Confirmed" *matCellDef="let el">
-                <mat-checkbox *ngIf="el.confirmed" [checked]="el.confirmed"></mat-checkbox>
-                <a [routerLink]="'/reservation/confirm/' + el.id" class="red ui button">Confirm</a>
+                <button *ngIf="el.confimed" class="green ui button" [disabled]>Confirmed</button>
+                <a *ngIf="!el.confimed" [routerLink]="'/reservation/confirm/' + el.id" class="red ui button">Confirm</a>
             </mat-cell>
         </ng-container>
         <ng-container matColumnDef="fullName">

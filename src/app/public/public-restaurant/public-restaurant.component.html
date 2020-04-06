@@ -10,10 +10,10 @@
 </div>
 <div class="segment p-4">
     <app-placeholder *ngIf="loading"></app-placeholder>
-    <div *ngFor="let restaurant of restaurants|async">
+    <div (click)="sendDataToComponent(restaurant)" *ngFor="let restaurant of restaurants|async">
         <app-feed [image]="restaurant.image" class="m-2" [title]="restaurant.name">
             <div>
-                {{restaurant.about}}
+                {{restaurant.about.substring(0,200)}}...
             </div>
             <div extra>
                 <div class="ui label">
@@ -32,7 +32,6 @@
                     <a [routerLink]="[restaurant.name + '/make-reservation/']" routerLinkActive="router-link-active"
                         class="book icon">Make reservation at {{restaurant.name}}</a>
                 </div>
-
             </div>
             <hr>
         </app-feed>

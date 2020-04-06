@@ -19,9 +19,9 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
 
   ) {
-    if (this.userService.currentUserValue) {
-      this.router.navigate['/'];
-    }
+    // if (this.userService.currentUserValue) {
+    //   this.router.navigate['/'];
+    // }
   }
 
   loginForm = new FormGroup({
@@ -35,8 +35,9 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.userService.authenticateUser(this.loginForm.get('username').value, this.loginForm.get('password').value)
       .subscribe({
-        next: (res) => {
-          this.router.navigateByUrl('/restaurant')
+        next: () => {
+          this.loading = false;
+          this.router.navigateByUrl(this.returnUrl);
         },
         error: (error) => {
           if(error){
@@ -49,6 +50,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/user/login';
+    this.userService.currentRestaurantValue.next(null);
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/restaurant';
   }
 }

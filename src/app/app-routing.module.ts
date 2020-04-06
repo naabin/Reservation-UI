@@ -20,7 +20,7 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./public/public.module').then(m => m.PublicModule)
   },
-  //otherwise redirect to loginpage
+  
   {path: '**', redirectTo: ''}
 ];
 

@@ -26,6 +26,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.dataSource = new MatTableDataSource<BookingsResponse>(this.data.content);
     this.dataSource.paginator = this.paginator;
+    console.log(this.data);
   }
   applyFilter(value:string){
     this.dataSource.filter = value;

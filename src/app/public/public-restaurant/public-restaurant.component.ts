@@ -3,6 +3,7 @@ import { PublicRestaurant } from 'src/models/restaurant';
 import { RestaurantService, PublicRestaurantResponse } from 'src/app/services/restaurant-service/restaurant.service';
 import { BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-public-restaurant',
@@ -11,7 +12,7 @@ import { MatDialog } from '@angular/material';
 })
 export class PublicRestaurantComponent implements OnInit {
 
-  constructor(private restaurantService: RestaurantService, public dialog: MatDialog) { }
+  constructor(private restaurantService: RestaurantService, public dialog: MatDialog, private route: Router) { }
 
   restaurants = new BehaviorSubject<PublicRestaurant[]>(null);
   loading = true;
@@ -21,7 +22,6 @@ export class PublicRestaurantComponent implements OnInit {
     .subscribe(
       {
         next: (restaurants) => {
-          console.log(restaurants);
           this.restaurants.next(restaurants.content);
         },
         error: (err) => {
@@ -32,5 +32,9 @@ export class PublicRestaurantComponent implements OnInit {
         }
       }
     )
+  }
+
+  sendDataToComponent(data:PublicRestaurant){
+    this.route.navigate([`${data.name}/details`], {state: {restaurant: data}});
   }
 }

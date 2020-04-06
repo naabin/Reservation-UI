@@ -1,1 +1,1 @@
-export const url = 'http://localhost:8080/';
+export const url = 'http://reservationsystem-env.eba-pj2rc9m4.ap-southeast-2.elasticbeanstalk.com/';
