@@ -1,34 +1,32 @@
-<mdb-navbar *ngIf="visible | async" SideClass="navbar fixed-top navbar-expand-lg scrolling-navbar navbar-dark blue " [containerInside]="false">
-  <mdb-navbar-brand><a class="navbar-brand" [routerLink]="['/']" routerLinkActive="router-link-active">
-      <mdb-icon fas icon="home"></mdb-icon>My Restaurant
-    </a></mdb-navbar-brand>
-  <links>
-
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link waves-light" mdbWavesEffect>
-          <mdb-icon fas icon="envelope"></mdb-icon> Contact<span class="sr-only">(current)</span>
-        </a>
-      </li>
+<nav *ngIf="visible$ | async" class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark blue">
+  <a class="navbar-brand" routerLinkActive="active" [routerLink]="'/'"><i class="at big icon"></i>BookMe</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
       <li *ngIf="isActive$ | async" class="nav-item">
-        <a *ngIf="restaurantId$ | async"  [routerLink]="['/reservation/'+restaurantId$.value]" routerLinkActive="router-link-active" class="nav-link waves-light"
-          mdbWavesEffect>
-          <mdb-icon fas icon="book"></mdb-icon> My Bookings
-        </a>
+        <a *ngIf="restaurantId$ | async" [routerLink]="['/reservation/'+restaurantId$.value]" routerLinkActive="active"
+          class="nav-link" href="#">My Bookings<span class="sr-only">(current)</span></a>
       </li>
-
-      <li *ngIf="isActive$ | async" class="nav-item dropdown" dropdown>
-        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-          <mdb-icon fas icon="user"></mdb-icon> Profile<span class="caret"></span>
+      <li *ngIf="isActive$ | async" class="nav-item dropdown">
+        <a routerLinkActive="active" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Profile
         </a>
-        <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
-          <a class="dropdown-item waves-light" mdbWavesEffect [routerLink]="['/restaurant']"
-            routerLinkActive="router-link-active">My account</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()">Log out</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" [routerLink]="'/restaurant'">My Account</a>
+          <a class="dropdown-item" (click)="logout()">Logout</a>
         </div>
       </li>
-
+      <li class="nav-item">
+        <a class="nav-link">Contact</a>
+      </li>
     </ul>
-
-  </links>
-</mdb-navbar>
+    <form [formGroup]="searchForm" class="form-inline mt-2 mt-md-0">
+      <input formControlName="search" class="form-control mr-sm-2" type="text" placeholder="Search..."
+        aria-label="Search">
+    </form>
+  </div>
+</nav>
