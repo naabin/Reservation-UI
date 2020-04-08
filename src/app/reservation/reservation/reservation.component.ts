@@ -35,7 +35,6 @@ export class ReservationComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        console.error(err);
         this.loading = false;
       }
     })

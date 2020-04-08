@@ -9,10 +9,10 @@
     <div class="row">
         <ng-template #noBookings>
             <div class="col-sm-12">
+                    <a [routerLink]="['/reservation/new/'+restaurantId]" [routerLinkActiveOptions]="{'exact': 'true'}"
+                    routerLinkActive="active" class="fluid ui green button">Create new Reservation</a>
                 <h1 class="text-center">You do not have any bookings yet.</h1>
             </div>
-            <a [routerLink]="['/reservation/new/'+restaurantId]" [routerLinkActiveOptions]="{'exact': 'true'}"
-                routerLinkActive="active" class="ui button">Create new Reservation</a>
         </ng-template>
     </div>
 </div>

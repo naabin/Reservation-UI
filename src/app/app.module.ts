@@ -15,7 +15,7 @@ import { PublicModule } from './public/public.module';
   ],
   imports: [
     MaterialModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,

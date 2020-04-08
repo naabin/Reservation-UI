@@ -1,0 +1,15 @@
+.ui.medium.image {
+  width: 200px;
+}
+
+@media screen and (max-width: 767px) {
+  .ui.medium.image {
+    width: 100%;
+  }
+  .ui.items:not(.unstackable) > .item > .image,
+  .ui.items:not(.unstackable) > .item > .image > img {
+    max-width: 100% !important;
+    width: auto !important;
+    max-height: 100% !important;
+  }
+}

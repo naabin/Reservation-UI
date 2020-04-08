@@ -1,39 +1,58 @@
-<div class="ui inverted vertical masthead center aligned segment">
-    <div class="ui text container">
-        <h1 class="ui inverted header">
-            Restaurant Reservation
-        </h1>
-        <h2>Do you own a restaurant or any food service outlet</h2>
-        <a [routerLink]="['/user/login']" routerLinkActive="active" class="ui huge primary button">Get Started <i
-                class="right arrow icon"></i></a>
+<div class="ui placeholder segment">
+    <div class="ui two column stackable center aligned grid">
+        <div class="ui vertical divider">Or</div>
+        <div class="middle aligned row">
+            <div class="column">
+                <div class="ui icon header">
+                    <i class="search icon"></i>
+                    Find Restaurant
+                </div>
+                <div class="field">
+                    <div class="ui search">
+                        <div class="ui icon input">
+                            <input type="text" placeholder="search restaurants..." class="promt">
+                            <i class="search icon"></i>
+                        </div>
+                        <div class="results"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="ui icon header">
+                    <i class="user icon"></i>
+                    Food Service Provider
+                </div>
+                <a [routerLink]="['/user/login']" routerLinkActive="active" class="ui huge primary button">Get Started <i
+                    class="right arrow icon"></i></a>
+            </div>
+        </div>
     </div>
 </div>
-<div class="segment p-4">
+<div class="segment">
     <app-placeholder *ngIf="loading"></app-placeholder>
-    <div (click)="sendDataToComponent(restaurant)" *ngFor="let restaurant of restaurants|async">
-        <app-feed [image]="restaurant.image" class="m-2" [title]="restaurant.name">
-            <div>
-                {{restaurant.about.substring(0,200)}}...
-            </div>
-            <div extra>
-                <div class="ui label">
-                    <a href="mailto:{{restaurant.email}}" target="_blank"><i
-                            class="envelope open icon"></i>{{restaurant.email}}</a>
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6" (click)="sendDataToComponent(restaurant)"
+            *ngFor="let restaurant of restaurants|async">
+            <app-feed class="custom" [image]="restaurant.image" [title]="restaurant.name">
+                <div>
+                    {{restaurant.about.substring(0,200)}}...
                 </div>
-                <div class="ui label">
-                    <a href="tel:{{restaurant.phoneNumber}}}"><i
-                            class="phone square icon"></i>{{restaurant.phoneNumber}}</a>
+                <div extra>
+                    <div class="btn-group-vertical" role="group">
+                        <a class=" fluid ui teal label" href="mailto:{{restaurant.email}}" target="_blank"><i
+                                class="big envelope open icon"></i>{{restaurant.email}}</a>
+                        <a class="fluid ui teal label" href="tel:{{restaurant.phoneNumber}}}"><i
+                                class="big phone square icon"></i>{{restaurant.phoneNumber}}</a>
+                        <a class="fluid ui teal label" href="{{restaurant.siteAddress}}" target="_blank"><i
+                                class="big globe icon"></i>{{restaurant.siteAddress}}</a>
+                        <a class="fluid ui green label" [routerLink]="[restaurant.name + '/make-reservation/']">
+                            <i class="big book icon"></i>Make reservation at {{restaurant.name}}</a>
+                    </div>
                 </div>
-                <div class="ui label">
-                    <a href="{{restaurant.siteAddress}}" target="_blank"><i
-                            class="globe icon"></i>{{restaurant.siteAddress}}</a>
-                </div>
-                <div class="ui label">
-                    <a [routerLink]="[restaurant.name + '/make-reservation/']" routerLinkActive="router-link-active"
-                        class="book icon">Make reservation at {{restaurant.name}}</a>
-                </div>
-            </div>
+            </app-feed>
             <hr>
-        </app-feed>
+        </div>
     </div>
+
+
 </div>

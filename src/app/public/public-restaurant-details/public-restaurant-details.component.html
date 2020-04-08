@@ -1,13 +1,12 @@
-
-<div  class="container">
+<div class="container">
     <app-placeholder *ngIf="loading"></app-placeholder>
     <div *ngIf="restaurant" class="ui vertical stripe segment">
-        <div class="ui middle aligned stackable grid container">
+        <div class="ui middle aligned stackable grid">
             <div class="row">
                 <div class="six wide  column">
                     <img *ngIf="restaurant.image && restaurant.image.imageUrl" src="{{restaurant.image.imageUrl}}"
-                        class="ui large bordered rounded image">
-                    <img *ngIf="restaurant.image === null" class="ui large bordered rounded image"
+                        class="img-fluid">
+                    <img *ngIf="restaurant.image === null" class="img-fluid"
                         src="../../../assets/white-image.png">
                     <div class="ui main text">
                         <h1 class="ui header">{{restaurant.name}}</h1>
@@ -29,19 +28,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr [ngClass]="restaurant.openingHours[today].dayOfWeek === day.dayOfWeek ? 'active': ''"  *ngFor="let day of restaurant.openingHours">
+                            <tr [ngClass]="restaurant.openingHours[today].dayOfWeek === day.dayOfWeek ? 'active': ''"
+                                *ngFor="let day of restaurant.openingHours">
                                 <td>{{day.dayOfWeek}}</td>
                                 <td>{{day.openFrom | date: 'hh:mm a'}}</td>
                                 <td>{{day.openUntil| date: 'hh:mm a'}}</td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-            </div>
-            <div class="row">
+
                     <div class="center aligned column">
-                      <a class="ui huge green button" [routerLink]="['/' + restaurant.name + '/make-reservation/']">Book Table</a>
+                        <a class="ui huge green button"
+                            [routerLink]="['/' + restaurant.name + '/make-reservation/']">Book Table</a>
                     </div>
+
+                </div>
             </div>
             <h4 class="ui horizontal header divider">Info</h4>
             <div class="row">

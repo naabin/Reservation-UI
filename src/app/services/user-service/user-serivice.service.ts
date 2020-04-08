@@ -96,8 +96,8 @@ export class UserSerivice {
   checkValidJWT(){
     return this.http.post<{tokenExpired: boolean}>(`${this.remoteUrl}api/auth/validtoken`, {})
       .pipe(
-        tap( 
-          (res) => {},
+        tap(
+          (res) => {console.log(res)},
           () => {
             this.notificationService.addError('User session timed out.');
           })

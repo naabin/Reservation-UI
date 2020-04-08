@@ -13,6 +13,7 @@ import { FeedComponent } from './feed/feed.component';
 import { PlaceholderComponent } from './placeholder/placeholder.component';
 import { MatDialogModule, MatTableModule, MatPaginatorModule, MatTabsModule, MatCheckboxModule, MatSortModule, MatMenuModule } from '@angular/material';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { CdkTableModule } from '@angular/cdk/table';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
     SharedRoutingModule,
     MatDialogModule,
     MatTableModule,
+    CdkTableModule,
     MatPaginatorModule,
     MatTabsModule,
     MatCheckboxModule,

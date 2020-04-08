@@ -5,16 +5,26 @@
 </div>
 <div *ngIf="restaurant" class="row">
     <div class="col-sm-12 col-md-3">
-        <div class="ui card">
-            <img class="ui image" [src]="restaurant.image ? restaurant.image.imageUrl : ''" alt="">
-            <div class="content">
-                <div class="header">{{restaurant.name}}</div>
-                <div><i class="map marker alternate icon"></i> {{restaurant.address}}</div>
-                <div class="meta">Owned by {{restaurant.user.firstName}}</div>
-            </div>
-            <div *ngIf="restaurant.image" class="ui bottom attached button">
-                <i class="change icon"></i>
-                Change Picture
+        <div class="ui column grid">
+            <div class="column">
+                <div class="ui fluid card">
+                    <img *ngIf="image" class="img-fluid" [src]="image ? image.imageUrl : ''" alt="">
+                    <input *ngIf="restaurant.image === null" class="basic ui button" #newImage (change)="uploadImage($event)"
+                        type="file" accept=".jpg, .jpeg, .png, .gif">
+                        <button class="fluid ui secondary button" (click)="uploadImage(newImage)">Update</button>
+                    <div class="content">
+                        <div class="header">{{restaurant.name}}</div>
+                        <div><i class="map marker alternate icon"></i> {{restaurant.address}}</div>
+                        <div class="meta">Owned by {{restaurant.user.firstName}}</div>
+                        <div *ngIf="restaurant.image" class="ui bottom attached button">
+                            <i class="change icon"></i>
+                            Change Picture
+                            <input class="fluid ui button" type="file" #updatingImage  accept=".jpeg, .jpg, .png, .gif">
+                            <button type="submit" class="fluid ui secondary button" (click)="updateImage(updatingImage)">Update</button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>

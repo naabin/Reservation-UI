@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.logout();
     this.userService.currentRestaurantValue.next(null);
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/restaurant';
   }

@@ -18,8 +18,6 @@ export class JwtInterceptor implements HttpInterceptor {
         if(currentUser.value !== null){
             request = request.clone({
                 setHeaders: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
                     'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
                 },
             })
