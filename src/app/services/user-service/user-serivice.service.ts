@@ -110,6 +110,5 @@ export class UserSerivice {
     localStorage.removeItem('restaurantId');
     this.currentUserSubject.next(null);
     this.currentRestaurantSubject.next(null);
-    this.notificationService.addSuccess('You have been logged out successfully');
   }
 }

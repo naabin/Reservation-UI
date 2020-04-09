@@ -17,10 +17,11 @@
                         <div><i class="map marker alternate icon"></i> {{restaurant.address}}</div>
                         <div class="meta">Owned by {{restaurant.user.firstName}}</div>
                         <div *ngIf="restaurant.image" class="ui bottom attached button">
-                            <i class="change icon"></i>
-                            Change Picture
-                            <input class="fluid ui button" type="file" #updatingImage  accept=".jpeg, .jpg, .png, .gif">
-                            <button type="submit" class="fluid ui secondary button" (click)="updateImage(updatingImage)">Update</button>
+                            <div class="custom-file">
+                                <input class="custom-file-input" type="file" #updatingImage  accept=".jpeg, .jpg, .png, .gif">
+                                <label class="custom-file-label" for="customFile">Change picture</label>
+                            </div>
+                            <button type="submit" class="fluid ui secondary button" (click)="updateImage(updatingImage)">Update image</button>
                         </div>
                     </div>
 

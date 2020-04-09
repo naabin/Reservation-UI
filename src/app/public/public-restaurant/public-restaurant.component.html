@@ -9,11 +9,36 @@
                 </div>
                 <div class="field">
                     <div class="ui search">
-                        <div class="ui icon input">
-                            <input type="text" placeholder="search restaurants..." class="promt">
-                            <i class="search icon"></i>
+                        <form [formGroup]="searchForm">
+                            <div (click)="searchForm.reset(); searching = false" class="ui icon input">
+                                <input (keypress)="searchRestaurants($event.target.value)" formControlName="search"
+                                    type="text" placeholder="search restaurants..." class="promt">
+                                <i [ngClass]="searching ? 'close' : 'search'" class=" icon"></i>
+                            </div>
+                        </form>
+                        <div [ngClass]="searching ? 'visible' : 'hidden'" class="results transition">
+                            <div *ngIf="searchList && searchList.length > 0; else notFound">
+
+                                <div class="ui list" *ngFor="let res of searchList">
+                                    <div class="item m-2">
+                                        <img class="ui avatar image" *ngIf="res.image !== null; else placeholderImage"
+                                            [src]="res.image && res.image.imageUrl" alt="">
+                                        <ng-template #placeholderImage>
+                                            <img class="ui avatar image" src="../../../assets/imageplaceholder.png">
+                                        </ng-template>
+                                        <div class="content p-1">
+                                            <a [routerLink]="'/' + res.name + '/details'"
+                                                class="header">{{res.name}}</a>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+
+                            </div>
+                            <ng-template #notFound>
+                                <a class="result">Could not find any matching restaurant</a>
+                            </ng-template>
                         </div>
-                        <div class="results"></div>
                     </div>
                 </div>
             </div>
@@ -22,8 +47,8 @@
                     <i class="user icon"></i>
                     Food Service Provider
                 </div>
-                <a [routerLink]="['/user/login']" routerLinkActive="active" class="ui huge primary button">Get Started <i
-                    class="right arrow icon"></i></a>
+                <a [routerLink]="['/user/login']" routerLinkActive="active" class="ui huge primary button">Get Started
+                    <i class="right arrow icon"></i></a>
             </div>
         </div>
     </div>
@@ -32,27 +57,26 @@
     <app-placeholder *ngIf="loading"></app-placeholder>
     <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-6" (click)="sendDataToComponent(restaurant)"
-            *ngFor="let restaurant of restaurants|async">
+            *ngFor="let restaurant of restaurants">
             <app-feed class="custom" [image]="restaurant.image" [title]="restaurant.name">
                 <div>
                     {{restaurant.about.substring(0,200)}}...
                 </div>
                 <div extra>
                     <div class="btn-group-vertical" role="group">
+                        <a class="fluid ui green label" [routerLink]="[restaurant.name + '/make-reservation/']">
+                            <i class="big book icon"></i>Make reservation at {{restaurant.name}}</a>
                         <a class=" fluid ui teal label" href="mailto:{{restaurant.email}}" target="_blank"><i
                                 class="big envelope open icon"></i>{{restaurant.email}}</a>
                         <a class="fluid ui teal label" href="tel:{{restaurant.phoneNumber}}}"><i
                                 class="big phone square icon"></i>{{restaurant.phoneNumber}}</a>
                         <a class="fluid ui teal label" href="{{restaurant.siteAddress}}" target="_blank"><i
                                 class="big globe icon"></i>{{restaurant.siteAddress}}</a>
-                        <a class="fluid ui green label" [routerLink]="[restaurant.name + '/make-reservation/']">
-                            <i class="big book icon"></i>Make reservation at {{restaurant.name}}</a>
                     </div>
                 </div>
             </app-feed>
             <hr>
         </div>
     </div>
-
-
+    <button [hidden]="this.last" [ngClass]="moreLoading ? 'loading': ''" [disabled]="moreLoading"  (click)="fetchMoreRestaurants()" class="fluid teal basic  ui button">More Restaurants</button>
 </div>

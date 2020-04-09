@@ -7,6 +7,8 @@ import { SharedModule } from '../shared/shared.module';
 import { PublicReservationComponent } from './public-reservation/public-reservation.component';
 import { ReservationModule } from '../reservation/reservation.module';
 import { PublicRestaurantDetailsComponent } from './public-restaurant-details/public-restaurant-details.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -14,6 +16,8 @@ import { PublicRestaurantDetailsComponent } from './public-restaurant-details/pu
   imports: [
     CommonModule,
     PublicRoutingModule,
+    ReactiveFormsModule,
+    MaterialModule,
     SharedModule,
     ReservationModule
   ],

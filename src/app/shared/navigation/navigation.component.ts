@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/models/user';
 import { NavServiceService } from 'src/app/services/nav-service/nav-service.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { NotificationService } from 'src/app/services/notifcation-service/notification.service';
 
 @Component({
   selector: 'app-navigation',
@@ -16,6 +17,7 @@ export class NavigationComponent implements OnInit{
   constructor(
     private userService: UserSerivice, 
     private navService: NavServiceService,
+    private notificationService: NotificationService,
     private route: Router) {
 
     this.isActive$ = this.userService.currentUserValue;
@@ -34,6 +36,7 @@ export class NavigationComponent implements OnInit{
 
   logout() {
     this.userService.logout();
+    this.notificationService.addSuccess('You have been logged out successfully');
     this.route.navigateByUrl('/user/login');
   }
 

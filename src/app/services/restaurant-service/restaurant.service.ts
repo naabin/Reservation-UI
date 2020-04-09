@@ -12,7 +12,7 @@ import { PageableResponse } from 'src/models/pageable';
 
 export interface PublicRestaurantResponse {
   content: PublicRestaurant[];
-  pageable: PageableResponse;
+  pageable: PageableResponse,
   totalPages: number;
   totalElements: number;
   last: boolean;
@@ -29,12 +29,10 @@ export interface PublicRestaurantResponse {
 })
 export class RestaurantService {
 
-  httpOptions = {
-    headers: new HttpHeaders({
+  httpOptions =  new HttpHeaders({
       'Content-Type': 'application/json'
     })
-  }
-
+  
   private remoteUrl = url;
 
   constructor(
@@ -54,12 +52,28 @@ export class RestaurantService {
         })))
   }
 
-  getRestaurants(): Observable<Restaurant[]>{
-    return this.http.get<Restaurant[]>(`${this.remoteUrl}api/restaurant/all`, this.httpOptions)
+  getRestaurants(pageNumber?: number, pageSize?: number, search?: string): Observable<Restaurant[]>{
+    return this.http.get<Restaurant[]>(`${this.remoteUrl}api/restaurant/all`, 
+    {
+      headers: this.httpOptions,
+      params: {
+        pageNumber: pageNumber ? String(pageNumber): "0",
+        pageSize: pageSize ? String(pageSize) : "10",
+        search: search ? search : ''
+      }
+    })
   }
 
-  getPublicRestaurants(): Observable<PublicRestaurantResponse> {
-    return this.http.get<PublicRestaurantResponse>(`${this.remoteUrl}api/public/restaurant`);
+  getPublicRestaurants(pageNumber?: number, pageSize?: number, search?: string): Observable<PublicRestaurantResponse> {
+    return this.http.get<PublicRestaurantResponse>(`${this.remoteUrl}api/public/restaurant`, 
+    {
+      headers: this.httpOptions,
+      params: {
+        pageNumber: pageNumber ? String(pageNumber): "0",
+        pageSize: pageSize ? String(pageSize) : "10",
+        search: search ? search: '',
+      }
+    });
   }
 
   getPublicRestaurantByName(name: string): Observable<PublicRestaurant> {
@@ -74,7 +88,7 @@ export class RestaurantService {
 
   updateRestaurant(id: number, restaurant: Restaurant): Observable<Restaurant> {
     const url = `${this.remoteUrl}api/restaurant/${id.toString()}`;
-    return this.http.put<Restaurant>(url, restaurant, this.httpOptions)
+    return this.http.put<Restaurant>(url, restaurant, {headers: this.httpOptions})
     .pipe(
       tap(() => this.notificationService.addSuccess('Successfully updated the restaurant profile'),
       () => {
@@ -87,7 +101,7 @@ export class RestaurantService {
   deleteRestaurant(id: number): Observable<Restaurant> {
     const url = `${this.remoteUrl}api/reservation/${id}`;
 
-    return this.http.delete<Restaurant>(url, this.httpOptions);
+    return this.http.delete<Restaurant>(url, {headers: this.httpOptions});
   }
 
 }
