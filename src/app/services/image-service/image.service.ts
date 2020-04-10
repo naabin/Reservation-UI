@@ -48,4 +48,18 @@ export class ImageService {
         );
   }
 
+  deleteImage(imageUrl: string, imageId: number, restaurantId: number){
+    return this.http.delete(`${this.remoteUrl}api/image/${imageId}`, {
+      params: {
+        imageURL: imageUrl, 
+        restaurantId: String(restaurantId)
+    }})
+      .pipe(
+        tap(
+          () => this.notificationService.addSuccess('Succesfully deleted image'),
+          () => this.notificationService.addError('Could not delete the image')
+        )
+      );
+  }
+
 }

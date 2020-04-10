@@ -8,21 +8,33 @@
         <div class="ui column grid">
             <div class="column">
                 <div class="ui fluid card">
-                    <img *ngIf="image" class="img-fluid" [src]="image ? image.imageUrl : ''" alt="">
-                    <input *ngIf="restaurant.image === null" class="basic ui button" #newImage (change)="uploadImage($event)"
-                        type="file" accept=".jpg, .jpeg, .png, .gif">
-                        <button class="fluid ui secondary button" (click)="uploadImage(newImage)">Update</button>
+                    <img *ngIf="image$ | async as image" class="img-fluid" [src]="image.imageUrl" alt="">
+                    <div>
+                        <div *ngIf="image$.value == null">
+                            <input class="basic ui button" type="file" name="newImage" #newImage
+                                (change)="uploadImage(newImage)" accept=".jpg, .jpeg, .png, .gif" />
+                            <button class="fluid ui secondary button">Upload</button>
+                        </div>
+                    </div>
                     <div class="content">
                         <div class="header">{{restaurant.name}}</div>
                         <div><i class="map marker alternate icon"></i> {{restaurant.address}}</div>
                         <div class="meta">Owned by {{restaurant.user.firstName}}</div>
-                        <div *ngIf="restaurant.image" class="ui bottom attached button">
-                            <div class="custom-file">
-                                <input class="custom-file-input" type="file" #updatingImage  accept=".jpeg, .jpg, .png, .gif">
-                                <label class="custom-file-label" for="customFile">Change picture</label>
+                        <div *ngIf="image$ | async as currentImage" class="ui bottom attached button">
+                            <div *ngIf="currentImage !== null">
+                                <button type="submit" class="fluid ui secondary button"
+                                    (click)="showModal=true">Update image</button>
+                                <app-modal (dismiss)="showModal=false" *ngIf="showModal">
+                                    <div modalTitle>Update Image</div>
+                                    <input class="form-control" #file type="file" name="file"
+                                        accept=".jpeg, .jpg, .png, .gif">
+                                    <div modalFooter role="group" class="btn-group mx-2">
+                                        <button (click)="updateImage(file)" class="btn btn-warning">Update current Image</button>
+                                        <button (click)="deleteImage()" class="btn btn-danger">Delete Current Image</button>
+                                    </div>
+                                </app-modal>
                             </div>
-                            <button type="submit" class="fluid ui secondary button" (click)="updateImage(updatingImage)">Update image</button>
-                        </div>
+                        </div>  
                     </div>
 
                 </div>
