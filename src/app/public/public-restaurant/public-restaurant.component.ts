@@ -3,9 +3,11 @@ import { PublicRestaurant } from 'src/models/restaurant';
 import { RestaurantService, PublicRestaurantResponse } from 'src/app/services/restaurant-service/restaurant.service';
 import { BehaviorSubject} from 'rxjs';
 import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { switchMap, merge, map, mergeAll, reduce, mergeMap} from 'rxjs/operators';
 import { FormControl, FormGroup } from '@angular/forms';
+import { HttpHeaders } from '@angular/common/http';
+import { UserSerivice } from 'src/app/services/user-service/user-serivice.service';
 
 @Component({
   selector: 'app-public-restaurant',
@@ -14,7 +16,38 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class PublicRestaurantComponent implements OnInit {
 
-  constructor(private restaurantService: RestaurantService, public dialog: MatDialog, private router: Router) { }
+  constructor(
+    private restaurantService: RestaurantService, 
+    public dialog: MatDialog, 
+    private route: ActivatedRoute,
+    private userService: UserSerivice,
+    private router: Router) {
+      console.log(this.route.snapshot.queryParams);
+      const token = this.route.snapshot.queryParams.token;
+      const userId = this.route.snapshot.queryParams.userId;
+      const user = this.userService.currentUserValue;
+      if(token !== null && token !== undefined ){
+        localStorage.setItem('userId', JSON.stringify(userId));
+        localStorage.setItem('token', JSON.stringify(token));
+        user.next(token);
+        this.userService.getUser(userId).subscribe((data) => {
+          if(data.restaurant === null){
+            this.router.navigateByUrl('/restaurant/new');
+          }
+          else{
+            const resId = localStorage.getItem('restaurantId');
+            if(resId !== null && resId !== undefined){
+              this.router.navigateByUrl('/restaurant');
+            }
+            else{
+              const restaurantId = data.restaurant.id;
+              localStorage.setItem('restaurantId', JSON.stringify(restaurantId))
+                this.router.navigateByUrl('/reservation/' + restaurantId)
+            }
+          }
+        })
+      }
+   }
 
   restaurants: PublicRestaurant[];
   loading = true;

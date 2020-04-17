@@ -5,6 +5,18 @@ import { User } from 'src/models/user';
 import { Observable, BehaviorSubject} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import { NotificationService } from '../notifcation-service/notification.service';
+import { Restaurant } from 'src/models/restaurant';
+
+
+export interface OAuthUserResponse {
+  email: string;
+  emailVerified: boolean;
+  id: number;
+  imageUrl: string;
+  name: string;
+  provider: string;
+  restaurant: Restaurant;
+}
 
 
 @Injectable({
@@ -12,7 +24,7 @@ import { NotificationService } from '../notifcation-service/notification.service
 })
 export class UserSerivice {
 
-  private currentUserSubject: BehaviorSubject<User>;
+  public currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
   private currentRestaurantSubject: BehaviorSubject<string>;
   public currentRestaurant: Observable<string>;
@@ -46,9 +58,9 @@ export class UserSerivice {
     return this.http.get<User[]>(this.remoteUrl + 'api/user/')
   }
 
-  getUser(id: number): Observable<User> {
+  getUser(id: number): Observable<OAuthUserResponse> {
     const url = `${this.remoteUrl}api/user/${id}`;
-    return this.http.get<User>(url);
+    return this.http.get<OAuthUserResponse>(url);
   }
 
   deleteUser(user: User): Observable<User>{
@@ -82,7 +94,6 @@ export class UserSerivice {
           this.notificationService.addSuccess('Login successful');
       }))
   }
-
   usernameAvailable(username: string){
     return this.http.post<{available: boolean}>(`${this.remoteUrl}api/user/checkuniqueuser`, {}, {params: {
       username: username

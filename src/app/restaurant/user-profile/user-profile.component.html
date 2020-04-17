@@ -7,17 +7,7 @@
     <form *ngIf="user" [formGroup]="userForm">
         <div class="row">
             <div class="col-sm-12 col-md-6">
-                <app-input [label]="'First Name'" [control]="userForm.get('firstName')" [givenValue]="user.firstName">
-                </app-input>
-            </div>
-            <div class="col-sm-12 col-md-6">
-                <app-input [label]="'Last Name'" [control]="userForm.get('lastName')" [givenValue]="user.lastName">
-                </app-input>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12 col-md-6">
-                <app-input [label]="'Username'" [control]="userForm.get('username')" [givenValue]="user.username">
+                <app-input [label]="'Name'" [control]="userForm.get('name')" [givenValue]="user.name">
                 </app-input>
             </div>
             <div class="col-sm-12 col-md-6">

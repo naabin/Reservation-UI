@@ -3,6 +3,8 @@ import { UserSerivice } from 'src/app/services/user-service/user-serivice.servic
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
+import {FACEBOOK_AUTH_URL, GOOGLE_AUTH_URL} from '../../../util/remoteUrl';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,6 +14,9 @@ export class LoginComponent implements OnInit {
 
   loading = false;
   returnUrl: string;
+
+  facebookUrl = FACEBOOK_AUTH_URL;
+  gogleUrl = GOOGLE_AUTH_URL;
 
   constructor(
     private userService: UserSerivice,
@@ -48,7 +53,6 @@ export class LoginComponent implements OnInit {
       })
 
   }
-
   ngOnInit() {
     this.userService.logout();
     this.userService.currentRestaurantValue.next(null);

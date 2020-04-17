@@ -19,7 +19,7 @@
                     <div class="content">
                         <div class="header">{{restaurant.name}}</div>
                         <div><i class="map marker alternate icon"></i> {{restaurant.address}}</div>
-                        <div class="meta">Owned by {{restaurant.user.firstName}}</div>
+                        <div class="meta">Owned by {{restaurant.user.name}}</div>
                         <div *ngIf="image$ | async as currentImage" class="ui bottom attached button">
                             <div *ngIf="currentImage !== null">
                                 <button type="submit" class="fluid ui secondary button"

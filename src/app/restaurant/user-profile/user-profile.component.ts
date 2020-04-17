@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/models/user';
-import { UserSerivice } from 'src/app/services/user-service/user-serivice.service';
+import { UserSerivice, OAuthUserResponse } from 'src/app/services/user-service/user-serivice.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -14,14 +14,12 @@ export class UserProfileComponent implements OnInit {
 
   
 
-  user: User;
+  user: OAuthUserResponse;
   error: string;
   loading = true;
   userForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
+    name: new FormControl(''),
     email: new FormControl(''),
-    username: new FormControl(''),
     password: new FormControl(''),
     newPassword: new FormControl(''),
     newPasswordConfirmation: new FormControl(''),

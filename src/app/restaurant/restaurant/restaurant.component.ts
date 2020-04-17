@@ -46,8 +46,8 @@ export class RestaurantComponent implements OnInit {
     this.loading = true;
     this.restaurantService.createRestaurant(this.restaurantForm.value)
     .subscribe({
-      next: () => {
-        this.router.navigateByUrl('/reservation');
+      next: (data) => {
+        this.router.navigateByUrl('/reservation/'+ data.id);
       },
       error: () => {
         this.restaurantForm.setErrors({unknown: true});

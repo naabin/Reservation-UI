@@ -21,10 +21,8 @@ export class UserUiComponent implements OnInit {
 
 
   signupForm = new FormGroup({
-    firstName: new FormControl('', [Validators.required]),
-    lastName: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email], [this.uniqueEmailCheck.validate]),
-    username: new FormControl('', [Validators.required],  [this.uniquUsernameCheck.validate]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     passwordConfirmation: new FormControl('', [Validators.required, Validators.minLength(6)])
   }, {validators: this.matchPassword.validate});
@@ -47,10 +45,8 @@ export class UserUiComponent implements OnInit {
        return;
      }
      this.loading = true;
-     this.user.firstName = this.signupForm.get('firstName').value;
-     this.user.lastName = this.signupForm.get('lastName').value;
+     this.user.name= this.signupForm.get('name').value;
      this.user.email = this.signupForm.get('email').value;
-     this.user.username = this.signupForm.get('username').value;
      this.user.password = this.signupForm.get('password').value;
      
      this.userService.registerUser(this.user).subscribe({

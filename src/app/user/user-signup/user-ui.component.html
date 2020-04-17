@@ -4,13 +4,9 @@
             <h1 class="text-center">User Signup</h1>
             <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
                 <div>
-                    <app-input [label]="'First Name'" [inputType]="'text'" [control]="signupForm.get('firstName')">
-                    </app-input>
-                    <app-input [label]="'Last Name'" [inputType]="'text'" [control]="signupForm.get('lastName')">
+                    <app-input [label]="'Name'" [inputType]="'text'" [control]="signupForm.get('name')">
                     </app-input>
                     <app-input [label]="'Email'" [inputType]="'email'" [control]="signupForm.get('email')">
-                    </app-input>
-                    <app-input [label]="'Username'" [inputType]="'text'" [control]="signupForm.get('username')">
                     </app-input>
                     <app-input [label]="'Password'" [inputType]="'password'" [control]="signupForm.get('password')">
                     </app-input>

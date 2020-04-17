@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { RestaurantService } from "src/app/services/restaurant-service/restaurant.service";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Restaurant } from "src/models/restaurant";
 import { ImageService } from "src/app/services/image-service/image.service";
 import { switchMap } from "rxjs/operators";
@@ -18,7 +18,8 @@ export class RestaurantHomeComponent implements OnInit {
     private restaurantService: RestaurantService,
     private imageService: ImageService,
     private notificationService: NotificationService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   restaurant: Restaurant;

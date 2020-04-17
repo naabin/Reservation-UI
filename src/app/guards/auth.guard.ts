@@ -10,8 +10,12 @@ export class AuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
         const currentUser = this.authService.currentUserValue;
+        if(currentUser.value !== null){
+            return true;
+        }
          this.authService.checkValidJWT().subscribe({
             next: (res) => {
+                console.log(res);
                 if(res.tokenExpired){
                     localStorage.clear();
                     currentUser.next(null);
@@ -26,9 +30,7 @@ export class AuthGuard implements CanActivate {
                 }
             }
         })
-        if(currentUser.value !== null){
-            return true;
-        }
+
         this.router.navigate(['user/login'], {queryParams: {returnUrl: state.url.toString()}});
         return false;
     }
