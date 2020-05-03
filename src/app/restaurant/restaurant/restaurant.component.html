@@ -1,32 +1,56 @@
 <div class="container">
-        <form (ngSubmit)="onSubmit()" [formGroup]="restaurantForm">
-                <app-input [label]="'Restaurants Name'" [inputType]="'text'" [control]="restaurantForm.get('name')">
-                </app-input>
-                <app-input [label]="'Address'" [inputType]="'text'" [control]="restaurantForm.get('address')">
-                </app-input>
-                <app-input [label]="'Phone Number'" [inputType]="'tel'" [control]="restaurantForm.get('phoneNumber')">
-                </app-input>
-                <app-input [label]="'Restaurant Email'" [inputType]="'email'" [control]="restaurantForm.get('email')"></app-input>
-                <app-input [label]="'Website URL'" [inputType]="'text'" [control]="restaurantForm.get('siteAddress')"></app-input>
-                <app-input [label]="'About(Give a little overview)'" [controlType]="'textarea'" [control]="restaurantForm.get('about')"></app-input>
-                <ng-container formArrayName="openingHours">
-                        <div *ngFor="let opHour of openingHours.controls; index as i">
-                                <ng-container [formGroupName]="i">
-                                        <app-opening-hours [days]="days" [control]="openingHours.controls[i]">
-                                        </app-opening-hours>
-                                </ng-container>
-                        </div>
-                </ng-container>
-                <button type="button" class="ui primary button" [hidden]="openingHours.length == 7"
-                        (click)="addOpeningHours()">Add OpeningHours</button>
-                <div class="field text-center">
-                        <button [ngClass]="loading ?'ui primary loading button': ''" class="ui secondary button"
-                                type="submit">Submit</button>
-                </div>
-                <div class="field text-center">
-                        <div *ngIf="restaurantForm.errors" class="ui red label">
-                                <p *ngIf="restaurantForm.errors.unknown">Unknown Error happened</p>
-                        </div>
-                </div>
-        </form>
+  <form (ngSubmit)="onSubmit()" [formGroup]="restaurantForm">
+    <mat-horizontal-stepper [linear]="true">
+      <mat-step>
+        <ng-template matStepLabel>Basic details (*required)</ng-template>
+        <app-input [label]="'Restaurants Name'" [inputType]="'text'" [control]="restaurantForm.get('name')">
+        </app-input>
+        <app-input [label]="'Address'" [inputType]="'text'" [control]="restaurantForm.get('address')">
+        </app-input>
+        <app-input [label]="'Phone Number'" [inputType]="'tel'" [control]="restaurantForm.get('phoneNumber')">
+        </app-input>
+        <app-input [label]="'Restaurant Email'" [inputType]="'email'"
+                   [control]="restaurantForm.get('email')"></app-input>
+        <div class="text-center">
+          <button type="button" class="btn btn-info" matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Extra information(Optional)</ng-template>
+        <app-input [label]="'Website URL'" [inputType]="'text'"
+                   [control]="restaurantForm.get('siteAddress')"></app-input>
+        <app-input [label]="'About(Give a little overview)'" [controlType]="'textarea'"
+                   [control]="restaurantForm.get('about')"></app-input>
+        <div class="field text-center">
+          <div class="btn-group">
+            <button class="btn btn-primary" type="button" matStepperPrevious>Previous</button>
+            <button class="btn btn-info" type="button" matStepperNext>Next</button>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Opening hours</ng-template>
+        <div class="field text-center">
+          <div class="btn-group">
+            <button class="btn btn-primary" type="button" matStepperPrevious>Previous</button>
+            <button class="btn btn-info" type="button" matStepperNext>Next</button>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Confirm</ng-template>
+        <div class="field text-center">
+          <button [ngClass]="loading ?'ui primary loading button': ''" class="ui secondary button"
+                  type="submit">Submit
+          </button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+
+    <div class="field text-center">
+      <div *ngIf="restaurantForm.errors" class="ui red label">
+        <p *ngIf="restaurantForm.errors.unknown">Unknown Error happened</p>
+      </div>
+    </div>
+  </form>
 </div>

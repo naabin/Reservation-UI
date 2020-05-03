@@ -12,6 +12,7 @@ import { OpeningHoursComponent } from './opening-hours/opening-hours.component';
 import { RestaurantHomeComponent } from './restaurant-home/restaurant-home.component';
 import { RestaurantProfileComponent } from './restaurant-profile/restaurant-profile.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import {MatStepperModule} from "@angular/material/stepper";
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     SharedModule,
     IgxTimePickerModule,
     MatSelectModule,
-    MatTabsModule
+    MatTabsModule,
+    MatStepperModule,
   ]
 })
 export class RestaurantModule { }
